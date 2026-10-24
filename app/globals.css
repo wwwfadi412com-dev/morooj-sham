@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Morooj Sham Official Color Palette */
+  --ms-primary-emerald: #0f3d2e;
+  --ms-accent-gold: #c8a96a;
+  --ms-gold-hover: #b39252;
+  --ms-action-green: #1e7e5a;
+  --ms-bg-alabaster: #f8f6f0;
+  --ms-surface-white: #ffffff;
+  --ms-text-charcoal: #1c2526;
+  --ms-text-muted: #5a6566;
+
+  /* Radii & Shadows */
+  --ms-radius-card: 12px;
+  --ms-radius-btn: 8px;
+  --ms-shadow-soft: 0 8px 24px rgba(15, 61, 46, 0.08);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-alabaster font-body text-charcoal antialiased;
+    line-height: 1.8;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-emerald;
+    line-height: 1.4;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ms-accent-gold);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn px-5 py-3 font-heading text-sm font-bold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-emerald hover:bg-gold-hover;
+  }
+  .btn-whatsapp {
+    @apply btn bg-meadow text-white hover:bg-emerald;
+  }
+  .btn-outline {
+    @apply btn border border-gold text-emerald hover:bg-gold/10;
+  }
+  .card {
+    @apply rounded-card bg-surface shadow-soft;
+  }
+  .section-title {
+    @apply font-heading text-2xl font-extrabold text-emerald md:text-3xl;
+  }
+  .code-badge {
+    @apply inline-flex items-center rounded-md bg-gold px-2.5 py-1 font-latin text-xs font-bold tracking-wide text-emerald;
+  }
+  .field {
+    @apply w-full rounded-btn border border-black/10 bg-white px-4 py-3 text-sm text-charcoal outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-bold text-emerald;
+  }
+
+  /* Long-form article / area content */
+  .prose-ms h2 {
+    @apply mb-3 mt-10 text-xl font-extrabold md:text-2xl;
+  }
+  .prose-ms h3 {
+    @apply mb-2 mt-6 text-lg font-bold;
+  }
+  .prose-ms p {
+    @apply mb-4 text-[17px] text-charcoal/90;
+  }
+  .prose-ms ul {
+    @apply mb-4 list-disc space-y-1.5 pr-6;
+  }
+  .prose-ms ol {
+    @apply mb-4 list-decimal space-y-1.5 pr-6;
+  }
+  .prose-ms a {
+    @apply font-bold text-meadow underline decoration-gold underline-offset-4 hover:text-emerald;
+  }
+  .prose-ms table {
+    @apply mb-6 w-full border-collapse overflow-hidden rounded-card text-sm;
+  }
+  .prose-ms th {
+    @apply bg-emerald px-3 py-2.5 text-right font-heading text-white;
+  }
+  .prose-ms td {
+    @apply border-b border-black/5 bg-white px-3 py-2.5;
+  }
+}
+
+/* Hide scrollbar for horizontal chip rails */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
