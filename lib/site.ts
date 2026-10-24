@@ -8,7 +8,7 @@ export const SITE = {
   nameEn: "Morooj Sham Real Estate",
   shortName: "مروج الشام",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://wwwfadi412com-dev.github.io/morooj-sham").replace(/\/$/, ""),
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "963900000000",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "963991111474",
   email: "info@moroojsham.com",
   description:
     "منصة عقارية متخصصة في ريف دمشق: مزارع وفلل وشقق وأراضي للبيع، ومزارع للإيجار اليومي مع مسبح في الدرخبية ودروشا وخان الشيح وعرطوز. معاينة مجانية وفحص قانوني للطابو وخدمة خاصة للمغتربين.",
