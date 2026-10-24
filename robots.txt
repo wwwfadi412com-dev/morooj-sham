@@ -1,0 +1,22 @@
+User-Agent: Googlebot
+User-Agent: Bingbot
+User-Agent: OAI-SearchBot
+User-Agent: ChatGPT-User
+User-Agent: GPTBot
+User-Agent: PerplexityBot
+User-Agent: Perplexity-User
+User-Agent: ClaudeBot
+User-Agent: Claude-User
+User-Agent: Claude-SearchBot
+User-Agent: Google-Extended
+User-Agent: Applebot
+User-Agent: Applebot-Extended
+Allow: /
+Disallow: /search
+
+User-Agent: *
+Allow: /
+Disallow: /search
+
+Host: https://wwwfadi412com-dev.github.io/morooj-sham/
+Sitemap: https://wwwfadi412com-dev.github.io/morooj-sham/sitemap.xml

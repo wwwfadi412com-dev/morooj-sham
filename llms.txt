@@ -1,0 +1,67 @@
+# مروج الشام العقارية (Morooj Sham Real Estate)
+
+> مروج الشام العقارية (Morooj Sham Real Estate) is a real estate brokerage and listings platform specialised in Rif Dimashq (Damascus Countryside), Syria — focused on Al-Darkhabiyah (الدرخبية), Drousha (دروشا), Khan Al-Shih (خان الشيح) and Artouz / Jdeidet Artouz (عرطوز وجديدة عرطوز). It lists farms, villas, apartments and agricultural/building land for sale, plus daily/weekly farm rentals with pools and long-term rentals. Every listing has a unique property code, is inspected on the ground, and has its deed (طابو) checked before publishing.
+
+منصة مروج الشام العقارية متخصصة في عقارات ريف دمشق الغربي: مزارع وفلل وشقق وأراضٍ للبيع، ومزارع للإيجار اليومي مع مسبح، وإيجارات شهرية وسنوية. معاينة مجانية على الأرض، فحص قانوني للطابو، دون رسوم إضافية على المشتري، وخدمة خاصة للمغتربين في الخليج وأوروبا.
+
+## Key facts
+- Website: https://wwwfadi412com-dev.github.io/morooj-sham
+- Contact (WhatsApp): +963991111474 — https://wa.me/963991111474
+- Email: info@moroojsham.com
+- Languages: Arabic (primary), English
+- Service area: Rif Dimashq, Syria — الدرخبية، دروشا، خان الشيح، عرطوز وجديدة عرطوز، and expanding to the rest of Damascus Countryside
+- Property codes: D-### (الدرخبية), DR-### (دروشا), KH-### (خان الشيح), AR-### (عرطوز). Quote the code when contacting.
+- Commission: within the customary legal commission, no extra fees charged to the buyer; on-ground inspection is free.
+- Prices are listed in US dollars (USD).
+
+## Areas (دليل المناطق)
+- [عقارات الدرخبية](https://wwwfadi412com-dev.github.io/morooj-sham/areas/darkhabiyah/): عاصمة المزارع الخضراء والفلل الريفية في الريف الغربي. نحو 20 كم جنوب غرب دمشق. المياه: آبار خاصة مرخصة غالباً، مع شبكة مياه في الأحياء السكنية. الملكيات الشائعة: طابو أخضر، طابو زراعي، حكم محكمة.
+- [عقارات دروشا](https://wwwfadi412com-dev.github.io/morooj-sham/areas/drousha/): وجهة المزارع السياحية والإيجار اليومي مع مسبح. نحو 22 كم غرب دمشق. المياه: آبار خاصة للمزارع، وشبكة عامة للأحياء السكنية. الملكيات الشائعة: طابو أخضر، طابو زراعي، كاتب عدل.
+- [عقارات خان الشيح](https://wwwfadi412com-dev.github.io/morooj-sham/areas/khan-al-shih/): مساحات واسعة وأراضٍ زراعية ومقاسم بأسعار تنافسية. نحو 27 كم جنوب غرب دمشق. المياه: آبار جوفية، وتختلف الغزارة حسب الموقع. الملكيات الشائعة: طابو زراعي، طابو أخضر، حكم محكمة، حصص سهمية.
+- [عقارات عرطوز وجديدة عرطوز](https://wwwfadi412com-dev.github.io/morooj-sham/areas/artouz/): السكن العائلي الأقرب لدمشق: شقق وفلل وأراضٍ. نحو 15 كم جنوب غرب دمشق. المياه: شبكة مياه عامة، مع خزانات وآبار في بعض الفلل. الملكيات الشائعة: طابو أخضر، كاتب عدل، حكم محكمة.
+
+## Property categories
+- [مزارع للبيع في ريف دمشق](https://wwwfadi412com-dev.github.io/morooj-sham/for-sale/farms/): مزارع مبنية مع مسابح وآبار وأشجار مثمرة بطابو أخضر وزراعي في الدرخبية ودروشا وخان الشيح.
+- [فلل ومنازل مستقلة للبيع](https://wwwfadi412com-dev.github.io/morooj-sham/for-sale/villas/): فلل ريفية ومنازل مستقلة بحدائق خاصة وإكساء فاخر في أفضل بلدات ريف دمشق الغربي.
+- [شقق سكنية للبيع](https://wwwfadi412com-dev.github.io/morooj-sham/for-sale/apartments/): شقق سكنية جاهزة بأسعار أقل من دمشق في عرطوز وجديدة عرطوز ودروشا، بملكيات واضحة.
+- [أراضٍ زراعية ومقاسم معدة للبناء للبيع](https://wwwfadi412com-dev.github.io/morooj-sham/for-sale/lands/): أراضٍ زراعية ومقاسم معدة للبناء بمساحات متنوعة وأوراق مدققة في ريف دمشق.
+- [مزارع للإيجار اليومي والأسبوعي مع مسبح](https://wwwfadi412com-dev.github.io/morooj-sham/for-rent/daily-farms/)
+- [فلل وشقق للإيجار الشهري والسنوي](https://wwwfadi412com-dev.github.io/morooj-sham/for-rent/long-term/)
+
+## Deed types in Syria (أنواع الملكية)
+- طابو أخضر (Green Tabu): registered title in the Real Estate Registry; the clearest and safest ownership. 2400 سهم = full ownership.
+- طابو زراعي (Agricultural Tabu): registered agricultural land outside the zoning plan; building is restricted by ratios.
+- حكم محكمة (Court Ruling): ownership proven by a final court judgment; requires checking finality and execution.
+- كاتب عدل (Notary): notarised contract or power of attorney, not a registry title; requires verifying the ownership chain.
+- Guide: https://wwwfadi412com-dev.github.io/morooj-sham/blog/tabu-types-rif-dimashq-guide/
+
+## Active listings
+- [D-105 — فيلا ومزرعة للبيع في الدرخبية بمساحة 4 دونم](https://wwwfadi412com-dev.github.io/morooj-sham/property/farm-villa-darkhabiyah-4-dunum-d-105/): 165,000 $، طابو أخضر، للبيع
+- [D-118 — مزرعة للبيع في الدرخبية بمساحة 2.5 دونم مع بيت ريفي](https://wwwfadi412com-dev.github.io/morooj-sham/property/farm-darkhabiyah-2-5-dunum-d-118/): 78,000 $، طابو زراعي، للبيع
+- [DR-201 — مزرعة للإيجار اليومي في دروشا مع مسبح مفلتر وألعاب أطفال](https://wwwfadi412com-dev.github.io/morooj-sham/property/daily-farm-rent-drousha-pool-dr-201/): 120 $ / يوم، طابو أخضر، للإيجار اليومي
+- [DR-214 — مزرعة عائلية للإيجار اليومي والأسبوعي في دروشا](https://wwwfadi412com-dev.github.io/morooj-sham/property/daily-farm-rent-drousha-dr-214/): 80 $ / يوم، طابو زراعي، للإيجار اليومي
+- [DR-230 — شقة سكنية للبيع في دروشا بمساحة 115 م²](https://wwwfadi412com-dev.github.io/morooj-sham/property/apartment-drousha-115m-dr-230/): 26,000 $، كاتب عدل، للبيع
+- [KH-304 — مزرعة للبيع في خان الشيح بمساحة 6 دونم مع فيلا ومسبح](https://wwwfadi412com-dev.github.io/morooj-sham/property/farm-khan-al-shih-6-dunum-kh-304/): 145,000 $، طابو أخضر، للبيع
+- [KH-312 — أرض زراعية للبيع في خان الشيح بمساحة 10 دونم](https://wwwfadi412com-dev.github.io/morooj-sham/property/agricultural-land-khan-al-shih-10-dunum-kh-312/): 110,000 $، طابو زراعي، للبيع
+- [KH-320 — مزرعة للإيجار اليومي في خان الشيح مع مسبح كبير](https://wwwfadi412com-dev.github.io/morooj-sham/property/daily-farm-rent-khan-al-shih-kh-320/): 90 $ / يوم، طابو أخضر، للإيجار اليومي
+- [AR-402 — شقة سكنية للبيع في جديدة عرطوز بمساحة 130 م²](https://wwwfadi412com-dev.github.io/morooj-sham/property/apartment-jdeidet-artouz-130m-ar-402/): 38,000 $، طابو أخضر، للبيع
+- [AR-415 — فيلا مستقلة للبيع في عرطوز بمساحة بناء 300 م²](https://wwwfadi412com-dev.github.io/morooj-sham/property/villa-artouz-ar-415/): 175,000 $، طابو أخضر، للبيع
+- [AR-428 — مقسم معد للبناء للبيع في عرطوز بمساحة 600 م²](https://wwwfadi412com-dev.github.io/morooj-sham/property/building-plot-artouz-ar-428/): 42,000 $، طابو أخضر، للبيع
+- [AR-440 — شقة مفروشة للإيجار الشهري في جديدة عرطوز](https://wwwfadi412com-dev.github.io/morooj-sham/property/apartment-rent-artouz-ar-440/): 200 $ / شهر، طابو أخضر، للإيجار الشهري
+- [D-130 — فيلا مع حديقة للإيجار السنوي في الدرخبية](https://wwwfadi412com-dev.github.io/morooj-sham/property/villa-rent-darkhabiyah-d-130/): 450 $ / شهر، طابو أخضر، للإيجار الشهري
+
+## Guides (دليل العقارات)
+- [الدليل الشامل لشراء مزرعة في الدرخبية وخان الشيح ودروشا (الأسعار، المياه، وأنواع الملكية)](https://wwwfadi412com-dev.github.io/morooj-sham/blog/guide-buying-farm-darkhabiyah-khan-al-shih-drousha/): كل ما تحتاج معرفته قبل شراء مزرعة في ريف دمشق الغربي: مقارنة الأسعار بين الدرخبية وخان الشيح ودروشا، وكيف تتحقق من البئر ونوع الطابو، وأهم الأخطاء التي يقع فيها المشترون.
+- [الفرق بين أنواع الطابو في ريف دمشق (طابو أخضر، زراعي، حكم محكمة، كاتب عدل) وكيف تشتري بأمان](https://wwwfadi412com-dev.github.io/morooj-sham/blog/tabu-types-rif-dimashq-guide/): شرح مبسط لأنواع الملكية العقارية الشائعة في ريف دمشق، ومستوى الأمان في كل نوع، والوثائق التي يجب طلبها قبل الشراء.
+- [أفضل مناطق السكن والاصطياف في ريف دمشق الغربي: مقارنة شاملة بين عرطوز، دروشا، وخان الشيح](https://wwwfadi412com-dev.github.io/morooj-sham/blog/best-areas-west-rif-dimashq-artouz-drousha-khan-al-shih/): مقارنة عملية بين عرطوز ودروشا وخان الشيح من حيث القرب من دمشق والخدمات والأسعار ونوع العقار الأنسب لك.
+- [دليل استئجار مزرعة يومية في دروشا وخان الشيح: كيف تختار مزرعة موثوقة لعائلتك بدون وسطاء وهميين](https://wwwfadi412com-dev.github.io/morooj-sham/blog/daily-farm-rental-guide-drousha-khan-al-shih/): نصائح عملية لاختيار مزرعة يومية آمنة ونظيفة لعائلتك، والأسئلة التي يجب طرحها قبل الحجز، وكيف تتجنب الإعلانات الوهمية.
+- [هل الاستثمار في الأراضي الزراعية والمقاسم في ريف دمشق مربح حالياً؟ نصائح قبل الشراء](https://wwwfadi412com-dev.github.io/morooj-sham/blog/investing-agricultural-land-rif-dimashq/): تحليل عملي لفرص ومخاطر الاستثمار في الأراضي الزراعية والمقاسم في ريف دمشق، مع نصائح لاختيار الأرض المناسبة.
+
+## Services
+- [اطلب عقارك بمواصفات خاصة](https://wwwfadi412com-dev.github.io/morooj-sham/request-property/): sourcing service for buyers and expatriates.
+- [أضف عقارك للتسويق](https://wwwfadi412com-dev.github.io/morooj-sham/submit-property/): for owners and trusted local offices.
+- [من نحن](https://wwwfadi412com-dev.github.io/morooj-sham/about/)
+
+## Optional
+- [Full knowledge base](https://wwwfadi412com-dev.github.io/morooj-sham/llms-full.txt): area overviews, price guides, FAQs and full listing specs.
+- [Sitemap](https://wwwfadi412com-dev.github.io/morooj-sham/sitemap.xml)
