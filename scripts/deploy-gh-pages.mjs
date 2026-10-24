@@ -22,7 +22,8 @@ run("npx next build", {
 // Without this GitHub Pages runs Jekyll, which drops the _next/ folder.
 writeFileSync("out/.nojekyll", "");
 
-const git = (cmd) => run(`git ${cmd}`, { cwd: "out" });
+// core.longpaths: Windows checkouts in deep folders exceed MAX_PATH for _next chunks.
+const git = (cmd) => run(`git -c core.longpaths=true ${cmd}`, { cwd: "out" });
 git("init -q -b gh-pages");
 git("add -A");
 git(`-c user.name="deploy" -c user.email="deploy@moroojsham" commit -q -m "Deploy ${new Date().toISOString()}"`);
