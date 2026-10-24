@@ -4,10 +4,14 @@ import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { areas } from "@/data/areas";
 import { countByArea } from "@/data/properties";
+import { assetSrc } from "@/lib/site";
+import { pages } from "@/data/content";
+
+const content = pages.listings.areasIndex;
 
 export const metadata: Metadata = {
-  title: "دليل مناطق ريف دمشق العقارية - الدرخبية ودروشا وخان الشيح وعرطوز",
-  description: "مقارنة شاملة بين مناطق ريف دمشق الغربي: المسافة عن دمشق، المياه، أنواع الطابو، ومؤشرات أسعار المزارع والشقق والأراضي.",
+  title: content.seoTitle,
+  description: content.seoDescription,
   alternates: { canonical: "/areas" },
 };
 
@@ -15,8 +19,8 @@ export default function AreasPage() {
   return (
     <>
       <PageHero
-        title="دليل مناطق ريف دمشق العقارية"
-        subtitle="كل ما تحتاج معرفته عن الدرخبية ودروشا وخان الشيح وعرطوز قبل الشراء أو الاستئجار."
+        title={content.h1}
+        subtitle={content.subtitle}
         crumbs={[
           { name: "الرئيسية", href: "/" },
           { name: "المناطق", href: "/areas" },
@@ -57,7 +61,7 @@ export default function AreasPage() {
           {areas.map((a) => (
             <Link key={a.slug} href={`/areas/${a.slug}`} className="card group overflow-hidden">
               <div className="relative aspect-[16/8]">
-                <Image src={a.image.replace("w=1600", "w=900")} alt={`عقارات ${a.fullName}`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition duration-500 group-hover:scale-105" />
+                <Image src={assetSrc(a.image.replace("w=1600", "w=900"))} alt={`عقارات ${a.fullName}`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition duration-500 group-hover:scale-105" />
               </div>
               <div className="p-5">
                 <h2 className="text-xl font-extrabold">عقارات {a.fullName}</h2>

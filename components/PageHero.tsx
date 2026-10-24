@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { Breadcrumbs } from "./Breadcrumbs";
 import type { Crumb } from "./JsonLd";
+import { assetSrc } from "@/lib/site";
 
 interface Props {
   title: string;
@@ -17,7 +18,7 @@ export function PageHero({ title, subtitle, crumbs, image, children }: Props) {
     <section className="relative overflow-hidden bg-emerald text-white">
       {image && (
         <>
-          <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" />
+          <Image src={assetSrc(image)} alt="" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-emerald/80" />
         </>
       )}

@@ -6,16 +6,10 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { WhatsAppIcon } from "./WhatsAppIcon";
-import { whatsappLink } from "@/lib/site";
+import { navigation } from "@/data/content";
+import { SITE, whatsappLink } from "@/lib/site";
 
-export const NAV = [
-  { href: "/for-sale", label: "عقارات للبيع" },
-  { href: "/for-rent/daily-farms", label: "مزارع للإيجار اليومي" },
-  { href: "/for-rent/long-term", label: "إيجار شهري وسنوي" },
-  { href: "/areas", label: "المناطق" },
-  { href: "/blog", label: "دليل العقارات" },
-  { href: "/about", label: "من نحن" },
-];
+const NAV = navigation.header;
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -26,7 +20,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 bg-emerald/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-emerald/90">
       <div className="container flex h-16 items-center justify-between gap-4 md:h-20">
-        <Link href="/" aria-label="مروج الشام العقارية - الرئيسية">
+        <Link href="/" aria-label={`${SITE.name} - الرئيسية`}>
           <BrandLogo />
         </Link>
 
@@ -53,7 +47,7 @@ export function Header() {
             أضف عقارك
           </Link>
           <a
-            href={whatsappLink("مرحباً مروج الشام، أرغب بالاستفسار عن عقار في ريف دمشق")}
+            href={whatsappLink(SITE.whatsappGreeting)}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-whatsapp hidden !py-2.5 md:inline-flex"

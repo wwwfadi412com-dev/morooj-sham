@@ -3,6 +3,7 @@ import { Mail, MapPin } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { areas } from "@/data/areas";
+import { navigation } from "@/data/content";
 import { typeLabels, typeSlugs } from "@/data/taxonomy";
 import type { PropertyType } from "@/data/types";
 import { SITE, displayPhone, whatsappLink } from "@/lib/site";
@@ -15,9 +16,7 @@ export function Footer() {
       <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <BrandLogo />
-          <p className="mt-5 text-sm leading-7">
-            منصة عقارية متخصصة في ريف دمشق الغربي. نعاين كل عقار على الأرض، ونفحص الطابو والأوراق، ونرافقك حتى نقل الملكية — داخل سوريا أو من بلد الاغتراب.
-          </p>
+          <p className="mt-5 text-sm leading-7">{SITE.footerAbout}</p>
         </div>
 
         <div>
@@ -66,7 +65,7 @@ export function Footer() {
           <ul className="space-y-3 text-sm">
             <li>
               <a
-                href={whatsappLink("مرحباً مروج الشام، أرغب بالاستفسار عن عقار")}
+                href={whatsappLink(SITE.whatsappGreeting)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-gold"
@@ -85,7 +84,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-gold" aria-hidden="true" />
-              ريف دمشق، سوريا
+              {SITE.addressRegion}
             </li>
           </ul>
           <div className="mt-5 flex flex-col gap-2">
@@ -101,6 +100,19 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container flex flex-col items-center justify-between gap-2 py-5 text-xs text-white/60 md:flex-row">
           <p>© {new Date().getFullYear()} {SITE.name}. جميع الحقوق محفوظة.</p>
+          {navigation.footerLinks.length > 0 && (
+            <nav aria-label="روابط سفلية">
+              <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+                {navigation.footerLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="hover:text-gold">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
           <p className="font-latin" dir="ltr">
             {SITE.nameEn}
           </p>

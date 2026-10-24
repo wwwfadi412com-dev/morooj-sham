@@ -62,14 +62,7 @@ collections:
           - { label: للبيع, value: sale }
           - { label: إيجار يومي / سياحي, value: daily-rent }
           - { label: إيجار شهري / سنوي, value: long-term-rent }
-      - name: area
-        label: المنطقة
-        widget: select
-        options:
-          - { label: الدرخبية, value: darkhabiyah }
-          - { label: دروشا, value: drousha }
-          - { label: خان الشيح, value: khan-al-shih }
-          - { label: عرطوز وجديدة عرطوز, value: artouz }
+      - { name: area, label: المنطقة, widget: relation, collection: areas, value_field: "{{slug}}", search_fields: [name, fullName], display_fields: [fullName], hint: لإضافة منطقة جديدة استخدم قسم «المناطق» }
       - name: status
         label: الحالة
         widget: select
@@ -101,6 +94,8 @@ collections:
       - { name: description, label: الوصف (فقرات), widget: list, min: 1, field: { name: paragraph, label: فقرة, widget: text } }
       - { name: images, label: الصور, widget: list, min: 1, field: { name: image, label: صورة, widget: image }, hint: "الصورة الأولى هي صورة الغلاف. لا تُظهر لافتات أو أرقام تدل على الموقع." }
       - { name: publishedAt, label: تاريخ النشر, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, default: "{{now}}" }
+      - { name: seoTitle, label: "SEO: عنوان الصفحة في جوجل", widget: string, required: false, hint: "اختياري. اتركه فارغاً ليُولَّد تلقائياً من العنوان والكود. يُفضّل أقل من 60 حرفاً." }
+      - { name: seoDescription, label: "SEO: الوصف في نتائج البحث", widget: text, required: false, hint: "اختياري. 120–160 حرفاً تقريباً." }
 
   - name: articles
     label: المقالات
@@ -130,3 +125,319 @@ collections:
         fields:
           - { name: q, label: السؤال, widget: string }
           - { name: a, label: الجواب, widget: text }
+      - { name: seoTitle, label: "SEO: عنوان الصفحة في جوجل", widget: string, required: false, hint: اختياري. اتركه فارغاً لاستخدام عنوان المقال }
+      - { name: seoDescription, label: "SEO: الوصف في نتائج البحث", widget: text, required: false, hint: اختياري. اتركه فارغاً لاستخدام الملخص }
+
+  - name: areas
+    label: المناطق
+    label_singular: منطقة
+    description: كل منطقة تولّد تلقائياً صفحتها وصفحات «النوع + المنطقة» ومزارع الإيجار اليومي فيها.
+    folder: content/areas
+    extension: json
+    format: json
+    create: true
+    delete: false
+    slug: "{{urlSlug}}"
+    summary: "{{fullName}}"
+    sortable_fields: [order, name]
+    fields:
+      - { name: name, label: الاسم المختصر, widget: string, hint: "مثال: عرطوز" }
+      - { name: fullName, label: الاسم الكامل, widget: string, hint: "مثال: عرطوز وجديدة عرطوز" }
+      - { name: urlSlug, label: الرابط بالإنجليزية, widget: string, hint: "مثل: yaafour. لا يتغير بعد النشر.", pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "حروف إنجليزية صغيرة وشرطات فقط"] }
+      - { name: codePrefix, label: بادئة أكواد العقارات, widget: string, hint: "حرف إلى 3 حروف إنجليزية لا تتكرر، مثل YF", pattern: ['^[A-Za-z]{1,3}$', "1–3 حروف إنجليزية"] }
+      - { name: order, label: الترتيب, widget: number, value_type: int, default: 10, hint: الأصغر يظهر أولاً }
+      - { name: tagline, label: سطر تعريفي, widget: string }
+      - { name: intersectionHook, label: ميزة تُضاف لعناوين صفحات النوع, widget: string, required: false, hint: "مثال: طابو أخضر ومياه وفيرة ← «مزارع للبيع في الدرخبية (طابو أخضر ومياه وفيرة)»" }
+      - { name: distance, label: المسافة عن دمشق, widget: string }
+      - { name: water, label: المياه, widget: string }
+      - { name: commonDeeds, label: أنواع الملكية الشائعة, widget: string }
+      - { name: image, label: صورة المنطقة, widget: image }
+      - name: geo
+        label: الإحداثيات (للخرائط ومحركات البحث)
+        widget: object
+        collapsed: true
+        fields:
+          - { name: lat, label: خط العرض, widget: number, value_type: float }
+          - { name: lng, label: خط الطول, widget: number, value_type: float }
+      - { name: highlights, label: مزايا مختصرة, widget: list, field: { name: item, label: ميزة, widget: string } }
+      - { name: keyTakeaways, label: خلاصة سريعة, widget: list, field: { name: point, label: نقطة, widget: string } }
+      - { name: overview, label: النبذة (فقرات), widget: list, min: 1, field: { name: paragraph, label: فقرة, widget: text }, hint: نحو 200 كلمة عن المنطقة }
+      - name: priceGuide
+        label: مؤشرات الأسعار
+        widget: list
+        fields:
+          - { name: label, label: البند, widget: string }
+          - { name: value, label: السعر التقريبي, widget: string }
+      - name: faqs
+        label: الأسئلة الشائعة
+        widget: list
+        fields:
+          - { name: q, label: السؤال, widget: string }
+          - { name: a, label: الجواب, widget: text }
+
+  - name: pages
+    label: محتوى الصفحات
+    description: نصوص الصفحات الرئيسية وعناوين ووصف SEO لكل صفحة.
+    format: json
+    files:
+      - name: home
+        label: الصفحة الرئيسية
+        file: content/pages/home.json
+        fields:
+          - name: seo
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: عنوان الصفحة في جوجل, widget: string }
+              - { name: description, label: الوصف في نتائج البحث, widget: text }
+          - name: hero
+            label: الواجهة الرئيسية
+            widget: object
+            fields:
+              - { name: badge, label: الشارة الصغيرة, widget: string }
+              - { name: title, label: العنوان الرئيسي, widget: string }
+              - { name: titleHighlight, label: الجزء الذهبي من العنوان, widget: string }
+              - { name: subtitle, label: النص تحت العنوان, widget: text }
+              - { name: image, label: صورة الخلفية, widget: image }
+              - { name: imageAlt, label: وصف الصورة, widget: string }
+          - name: areasSection
+            label: قسم المناطق
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+              - { name: subtitle, label: النص, widget: string }
+          - name: saleSection
+            label: قسم العقارات للبيع
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+          - name: dailySection
+            label: قسم الإيجار اليومي
+            widget: object
+            collapsed: true
+            fields:
+              - { name: eyebrow, label: النص الصغير, widget: string }
+              - { name: title, label: العنوان, widget: string }
+              - { name: text, label: النص, widget: text }
+              - { name: button, label: نص الزر, widget: string }
+          - name: trust
+            label: قسم «لماذا نحن»
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+              - { name: subtitle, label: النص, widget: string }
+              - name: items
+                label: البطاقات
+                widget: list
+                fields:
+                  - name: icon
+                    label: الأيقونة
+                    widget: select
+                    options:
+                      - { label: دبوس موقع, value: map-pin }
+                      - { label: فحص مستند, value: file-search }
+                      - { label: يد وعملات, value: hand-coins }
+                      - { label: كرة أرضية, value: globe }
+                      - { label: درع, value: shield }
+                      - { label: كاميرا, value: camera }
+                      - { label: مصافحة, value: handshake }
+                      - { label: نجمة, value: star }
+                  - { name: title, label: العنوان, widget: string }
+                  - { name: text, label: النص, widget: text }
+          - name: blogSection
+            label: قسم المقالات
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+          - { name: faqTitle, label: عنوان الأسئلة الشائعة, widget: string }
+          - name: faqs
+            label: الأسئلة الشائعة
+            widget: list
+            fields:
+              - { name: q, label: السؤال, widget: string }
+              - { name: a, label: الجواب, widget: text }
+          - name: cta
+            label: الدعوة الختامية
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+              - { name: text, label: النص, widget: text }
+              - { name: primaryLabel, label: نص الزر الذهبي, widget: string }
+              - { name: secondaryLabel, label: نص الزر الثاني, widget: string }
+
+      - name: about
+        label: من نحن
+        file: content/pages/about.json
+        fields:
+          - name: seo
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: عنوان الصفحة في جوجل, widget: string }
+              - { name: description, label: الوصف في نتائج البحث, widget: text }
+          - { name: title, label: العنوان, widget: string }
+          - { name: subtitle, label: النص تحت العنوان, widget: text }
+          - { name: body, label: المحتوى, widget: markdown }
+          - { name: workflowTitle, label: عنوان خطوات العمل, widget: string }
+          - name: workflow
+            label: خطوات العمل
+            widget: list
+            fields:
+              - { name: title, label: الخطوة, widget: string }
+              - { name: text, label: الشرح, widget: text }
+          - name: faqs
+            label: الأسئلة الشائعة
+            widget: list
+            fields:
+              - { name: q, label: السؤال, widget: string }
+              - { name: a, label: الجواب, widget: text }
+
+      - name: submit-property
+        label: أضف عقارك
+        file: content/pages/submit-property.json
+        fields:
+          - name: seo
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: عنوان الصفحة في جوجل, widget: string }
+              - { name: description, label: الوصف في نتائج البحث, widget: text }
+          - { name: title, label: العنوان, widget: string }
+          - { name: subtitle, label: النص تحت العنوان, widget: text }
+          - name: steps
+            label: الخطوات
+            widget: list
+            fields:
+              - { name: title, label: الخطوة, widget: string }
+              - { name: text, label: الشرح, widget: string }
+          - { name: submitLabel, label: نص زر الإرسال, widget: string }
+          - { name: formNote, label: ملاحظة تحت الزر, widget: text }
+
+      - name: request-property
+        label: اطلب عقارك
+        file: content/pages/request-property.json
+        fields:
+          - name: seo
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: عنوان الصفحة في جوجل, widget: string }
+              - { name: description, label: الوصف في نتائج البحث, widget: text }
+          - { name: title, label: العنوان, widget: string }
+          - { name: subtitle, label: النص تحت العنوان, widget: text }
+          - { name: intro, label: صندوق «كيف تعمل الخدمة», widget: markdown }
+          - { name: submitLabel, label: نص زر الإرسال, widget: string }
+          - { name: formNote, label: ملاحظة تحت الزر, widget: text }
+
+      - name: listings
+        label: صفحات الأقسام (SEO)
+        file: content/pages/listings.json
+        fields:
+          - name: forSale
+            label: عقارات للبيع
+            widget: object
+            collapsed: true
+            fields: &listingFields
+              - { name: h1, label: العنوان الظاهر (H1), widget: string }
+              - { name: subtitle, label: النص تحت العنوان, widget: text }
+              - { name: seoTitle, label: عنوان الصفحة في جوجل, widget: string }
+              - { name: seoDescription, label: الوصف في نتائج البحث, widget: text }
+          - { name: forRent, label: للإيجار (كل الأنواع), widget: object, collapsed: true, fields: *listingFields }
+          - name: dailyFarms
+            label: مزارع الإيجار اليومي
+            widget: object
+            collapsed: true
+            fields:
+              - { name: h1, label: العنوان الظاهر (H1), widget: string }
+              - { name: subtitle, label: النص تحت العنوان, widget: text }
+              - { name: seoTitle, label: عنوان الصفحة في جوجل, widget: string }
+              - { name: seoDescription, label: الوصف في نتائج البحث, widget: text }
+              - { name: image, label: صورة الخلفية, widget: image, required: false }
+              - name: faqs
+                label: الأسئلة الشائعة
+                widget: list
+                fields:
+                  - { name: q, label: السؤال, widget: string }
+                  - { name: a, label: الجواب, widget: text }
+          - { name: longTerm, label: الإيجار الشهري والسنوي, widget: object, collapsed: true, fields: *listingFields }
+          - { name: areasIndex, label: صفحة المناطق, widget: object, collapsed: true, fields: *listingFields }
+          - { name: blogIndex, label: صفحة المقالات, widget: object, collapsed: true, fields: *listingFields }
+
+      - name: categories
+        label: أسماء أنواع العقارات
+        file: content/pages/categories.json
+        fields:
+          - name: farm
+            label: مزرعة
+            widget: object
+            collapsed: true
+            fields: &categoryFields
+              - { name: single, label: الاسم المفرد, widget: string }
+              - { name: plural, label: الاسم بالجمع, widget: string }
+              - { name: saleTitle, label: عنوان صفحة البيع (H1), widget: string }
+              - { name: saleDescription, label: وصف صفحة البيع وSEO, widget: text }
+          - { name: villa, label: فيلا, widget: object, collapsed: true, fields: *categoryFields }
+          - { name: apartment, label: شقة, widget: object, collapsed: true, fields: *categoryFields }
+          - { name: land, label: أرض, widget: object, collapsed: true, fields: *categoryFields }
+
+  - name: custom-pages
+    label: صفحات إضافية
+    label_singular: صفحة
+    description: صفحات حرة مثل سياسة الخصوصية أو العروض. رابطها يكون /page/الرابط — أضفه للقوائم من «الإعدادات».
+    folder: content/custom-pages
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{urlSlug}}"
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: العنوان, widget: string }
+      - { name: urlSlug, label: الرابط بالإنجليزية, widget: string, hint: "مثل: offers ← يصبح الرابط /page/offers", pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "حروف إنجليزية صغيرة وشرطات فقط"] }
+      - { name: image, label: صورة, widget: image, required: false }
+      - { name: body, label: المحتوى, widget: markdown }
+      - { name: seoTitle, label: "SEO: عنوان الصفحة في جوجل", widget: string, required: false }
+      - { name: seoDescription, label: "SEO: الوصف في نتائج البحث", widget: text, required: false }
+
+  - name: settings
+    label: الإعدادات
+    format: json
+    files:
+      - name: site
+        label: إعدادات الموقع العامة
+        file: content/settings/site.json
+        fields:
+          - { name: name, label: اسم المنصة, widget: string }
+          - { name: nameEn, label: الاسم بالإنجليزية, widget: string }
+          - { name: shortName, label: الاسم المختصر, widget: string, hint: يظهر بعد عنوان كل صفحة في جوجل }
+          - { name: defaultTitle, label: "SEO: العنوان الافتراضي", widget: string }
+          - { name: description, label: "SEO: الوصف الافتراضي", widget: text }
+          - { name: ogImage, label: صورة المشاركة (واتساب وفيسبوك), widget: image, hint: "1200×630 بكسل" }
+          - { name: whatsapp, label: رقم الواتساب, widget: string, hint: "بالصيغة الدولية بدون + أو 00، مثل 963991111474. كل أزرار الموقع والنماذج ترسل إليه." }
+          - { name: email, label: البريد الإلكتروني, widget: string }
+          - { name: addressRegion, label: المنطقة / العنوان العام, widget: string }
+          - { name: whatsappGreeting, label: رسالة واتساب الافتراضية, widget: string }
+          - { name: propertyTrustNote, label: ملاحظة الثقة تحت زر الحجز, widget: text }
+          - { name: soldBanner, label: نص شريط «تم البيع», widget: string }
+          - { name: footerAbout, label: نبذة أسفل الموقع, widget: text }
+      - name: navigation
+        label: القوائم
+        file: content/settings/navigation.json
+        fields:
+          - name: header
+            label: القائمة العلوية
+            widget: list
+            fields:
+              - { name: label, label: النص, widget: string }
+              - { name: href, label: الرابط, widget: string, hint: "مثل /for-sale أو /page/offers" }
+          - name: footerLinks
+            label: روابط أسفل الموقع
+            widget: list
+            fields:
+              - { name: label, label: النص, widget: string }
+              - { name: href, label: الرابط, widget: string }

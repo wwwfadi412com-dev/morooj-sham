@@ -6,10 +6,13 @@ import { PageHero } from "@/components/PageHero";
 import { articles } from "@/data/articles";
 import { formatDate } from "@/lib/format";
 import { assetSrc } from "@/lib/site";
+import { pages } from "@/data/content";
+
+const content = pages.listings.blogIndex;
 
 export const metadata: Metadata = {
-  title: "دليل العقارات والاستثمار في ريف دمشق - مقالات قانونية واستثمارية",
-  description: "أدلة عملية لشراء المزارع والشقق والأراضي في ريف دمشق: أنواع الطابو، مقارنة المناطق، الإيجار اليومي، ونصائح الاستثمار.",
+  title: content.seoTitle,
+  description: content.seoDescription,
   alternates: { canonical: "/blog" },
 };
 
@@ -17,8 +20,8 @@ export default function BlogPage() {
   return (
     <>
       <PageHero
-        title="دليل العقارات والاستثمار في ريف دمشق"
-        subtitle="مقالات قانونية واستثمارية تساعدك على اتخاذ قرار الشراء أو الاستئجار بثقة."
+        title={content.h1}
+        subtitle={content.subtitle}
         crumbs={[
           { name: "الرئيسية", href: "/" },
           { name: "دليل العقارات", href: "/blog" },

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppIcon";
-import { whatsappLink } from "@/lib/site";
+import { SITE, whatsappLink } from "@/lib/site";
 
 /** Persistent bottom action bar on mobile. Property pages render their own variant. */
 export function MobileBar() {
@@ -14,7 +14,7 @@ export function MobileBar() {
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-black/5 bg-white/95 p-3 shadow-[0_-6px_20px_rgba(15,61,46,0.12)] backdrop-blur md:hidden">
       <div className="flex gap-2">
         <a
-          href={whatsappLink("مرحباً مروج الشام، أرغب بالاستفسار عن عقار في ريف دمشق")}
+          href={whatsappLink(SITE.whatsappGreeting)}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-whatsapp flex-1"

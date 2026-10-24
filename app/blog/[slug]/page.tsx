@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const a = getArticle((await params).slug);
   if (!a) return {};
   return {
-    title: a.title,
-    description: a.excerpt,
+    title: a.seoTitle || a.title,
+    description: a.seoDescription || a.excerpt,
     alternates: { canonical: `/blog/${a.slug}` },
     openGraph: { type: "article", images: [a.image], publishedTime: a.publishedAt },
   };

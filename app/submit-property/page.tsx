@@ -3,36 +3,37 @@ import { Camera, FileCheck2, Megaphone } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { LeadForm } from "@/components/LeadForm";
 import { areas } from "@/data/areas";
+import { pages } from "@/data/content";
+
+const content = pages["submit-property"];
 
 export const metadata: Metadata = {
-  title: "أضف عقارك للتسويق - بيع أو تأجير عقارك في ريف دمشق",
-  description: "سجّل مزرعتك أو فيلتك أو شقتك أو أرضك في ريف دمشق للتسويق عبر مروج الشام: تصوير احترافي، وصول للمغتربين، وحماية كاملة لخصوصيتك.",
+  title: content.seo.title,
+  description: content.seo.description,
   alternates: { canonical: "/submit-property" },
 };
 
-const steps = [
-  { icon: FileCheck2, title: "أرسل التفاصيل", text: "املأ النموذج وأرسل الصور عبر واتساب." },
-  { icon: Camera, title: "معاينة وتصوير", text: "نعاين العقار ونصوره باحترافية مع التحقق من الأوراق." },
-  { icon: Megaphone, title: "تسويق محمي", text: "ننشر العقار بكود خاص دون كشف هويتك أو رقمك." },
-];
+const STEP_ICONS = [FileCheck2, Camera, Megaphone];
 
 export default function SubmitPropertyPage() {
   return (
     <>
       <PageHero
-        title="أضف عقارك للتسويق"
-        subtitle="للمالكين والمكاتب العقارية الموثوقة: نسوّق مزرعتك أو فيلتك أو شقتك أو أرضك لآلاف الباحثين في سوريا وبلاد الاغتراب."
+        title={content.title}
+        subtitle={content.subtitle}
         crumbs={[
           { name: "الرئيسية", href: "/" },
-          { name: "أضف عقارك", href: "/submit-property" },
+          { name: content.title, href: "/submit-property" },
         ]}
       />
       <div className="container grid gap-10 py-12 lg:grid-cols-[1fr_2fr]">
         <aside className="space-y-4">
-          {steps.map((s, i) => (
+          {content.steps.map((s, i) => {
+            const Icon = STEP_ICONS[i % STEP_ICONS.length];
+            return (
             <div key={s.title} className="card flex gap-4 p-5">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-emerald">
-                <s.icon className="h-6 w-6 text-gold" aria-hidden="true" />
+                <Icon className="h-6 w-6 text-gold" aria-hidden="true" />
               </span>
               <div>
                 <h2 className="font-bold">
@@ -41,12 +42,13 @@ export default function SubmitPropertyPage() {
                 <p className="text-sm text-muted">{s.text}</p>
               </div>
             </div>
-          ))}
+            );
+          })}
         </aside>
         <LeadForm
           heading="مرحباً مروج الشام، أرغب بإضافة عقاري للتسويق:"
-          submitLabel="إرسال بيانات العقار عبر واتساب"
-          note="بعد فتح المحادثة، أرسل صور العقار مباشرة في نفس محادثة واتساب. بياناتك لا تُنشر للعموم."
+          submitLabel={content.submitLabel}
+          note={content.formNote}
           fields={[
             { name: "name", label: "الاسم", required: true },
             { name: "phone", label: "رقم الهاتف / واتساب", type: "tel", required: true, placeholder: "+963..." },

@@ -1,20 +1,15 @@
+import { settings } from "@/data/content";
+
 /**
- * Global site configuration. Values that change between environments
- * (domain, WhatsApp number) come from env vars so moving from the free
- * GitHub Pages URL to moroojsham.com is a config change, not a code change.
+ * Global site configuration. Names, contact details and default SEO text are
+ * edited in /admin (content/settings/site.json); the site URL comes from an env
+ * var so moving from GitHub Pages to moroojsham.com is a deploy setting.
  */
 export const SITE = {
-  name: "مروج الشام العقارية",
-  nameEn: "Morooj Sham Real Estate",
-  shortName: "مروج الشام",
+  ...settings,
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://wwwfadi412com-dev.github.io/morooj-sham").replace(/\/$/, ""),
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "963991111474",
-  email: "info@moroojsham.com",
-  description:
-    "منصة عقارية متخصصة في ريف دمشق: مزارع وفلل وشقق وأراضي للبيع، ومزارع للإيجار اليومي مع مسبح في الدرخبية ودروشا وخان الشيح وعرطوز. معاينة مجانية وفحص قانوني للطابو وخدمة خاصة للمغتربين.",
   locale: "ar_SY",
-  defaultTitle: "مروج الشام العقارية | مزارع وفلل وشقق وأراضي للبيع والإيجار في ريف دمشق",
-} as const;
+};
 
 /** Prefix for raw (non next/link) URLs such as plain <form action>. */
 export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";

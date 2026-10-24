@@ -3,10 +3,13 @@ import { Crown } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { LeadForm } from "@/components/LeadForm";
 import { areas } from "@/data/areas";
+import { pages } from "@/data/content";
+
+const content = pages["request-property"];
 
 export const metadata: Metadata = {
-  title: "اطلب عقارك بمواصفات خاصة - خدمة VIP للمغتربين والمستثمرين",
-  description: "أخبرنا بالمساحة والميزانية ونوع الملكية والمنطقة، وسيبحث لك مستشار مروج الشام عن العقار المطابق في ريف دمشق مع معاينة وفحص قانوني.",
+  title: content.seo.title,
+  description: content.seo.description,
   alternates: { canonical: "/request-property" },
 };
 
@@ -14,24 +17,22 @@ export default function RequestPropertyPage() {
   return (
     <>
       <PageHero
-        title="اطلب عقارك بمواصفات خاصة"
-        subtitle="خدمة VIP للمغتربين والمستثمرين: حدّد ما تريد، ونحن نبحث ونعاين ونفحص الأوراق ونرسل لك الخيارات المطابقة."
+        title={content.title}
+        subtitle={content.subtitle}
         crumbs={[
           { name: "الرئيسية", href: "/" },
-          { name: "اطلب عقارك", href: "/request-property" },
+          { name: content.title, href: "/request-property" },
         ]}
       />
       <div className="container max-w-4xl py-12">
         <div className="mb-6 flex items-start gap-3 rounded-card border border-gold/40 bg-white p-5">
           <Crown className="h-6 w-6 shrink-0 text-gold" aria-hidden="true" />
-          <p className="text-sm leading-7">
-            <strong className="text-emerald">كيف تعمل الخدمة؟</strong> نستلم طلبك، ونبحث في شبكتنا من المالكين والمكاتب الموثوقة، ثم نرسل لك العروض المطابقة مع فيديو معاينة وتقرير عن نوع الملكية — دون أي التزام منك.
-          </p>
+          <div className="text-sm leading-7 [&_strong]:text-emerald" dangerouslySetInnerHTML={{ __html: content.introHtml }} />
         </div>
         <LeadForm
           heading="مرحباً مروج الشام، أبحث عن عقار بالمواصفات التالية:"
-          submitLabel="إرسال الطلب عبر واتساب"
-          note="سيتواصل معك مستشارنا خلال ساعات عمل اليوم نفسه."
+          submitLabel={content.submitLabel}
+          note={content.formNote}
           fields={[
             { name: "name", label: "الاسم", required: true },
             { name: "phone", label: "رقم واتساب", type: "tel", required: true, placeholder: "+..." },

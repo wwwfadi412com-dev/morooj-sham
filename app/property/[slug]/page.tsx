@@ -11,7 +11,7 @@ import { getArea } from "@/data/areas";
 import { getProperty, properties, similarProperties } from "@/data/properties";
 import { deedLabels, transactionLabels, typeLabels, typeSlugs } from "@/data/taxonomy";
 import { formatArea, formatPrice, propertyWhatsappMessage } from "@/lib/format";
-import { whatsappLink } from "@/lib/site";
+import { SITE, whatsappLink } from "@/lib/site";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!p) return {};
   const sold = p.status === "sold" ? "تم البيع - " : "";
   return {
-    title: `${sold}${p.title} - كود ${p.code}`,
-    description: `${p.description[0].slice(0, 150)}… السعر ${formatPrice(p)}. ${p.deedDetail}.`,
+    title: p.seoTitle || `${sold}${p.title} - كود ${p.code}`,
+    description: p.seoDescription || `${p.description[0].slice(0, 150)}… السعر ${formatPrice(p)}. ${p.deedDetail}.`,
     alternates: { canonical: `/property/${p.slug}` },
     openGraph: { images: [p.images[0]], type: "article" },
   };
@@ -70,7 +70,7 @@ export default async function PropertyPage({ params }: Params) {
           <div className="container flex flex-col items-start gap-3 py-4 md:flex-row md:items-center md:justify-between">
             <p className="flex items-center gap-2 font-heading font-bold">
               <AlertTriangle className="h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
-              تم بيع هذا العقار عبر منصة مروج الشام — تصفح عقارات مشابهة متاحة حالياً بالأسفل
+              {SITE.soldBanner}
             </p>
             <a href="#similar" className="btn-gold !py-2 text-xs">
               عرض العقارات المشابهة
@@ -205,7 +205,7 @@ export default async function PropertyPage({ params }: Params) {
               </Link>
               <p className="flex gap-2 rounded-btn bg-alabaster p-3 text-xs leading-6 text-muted">
                 <ShieldCheck className="h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
-                معاينة مجانية على الأرض برفقة مستشارنا العقاري — عمولتنا ضمن العمولة القانونية المتعارف عليها دون أي رسوم إضافية على المشتري.
+                {SITE.propertyTrustNote}
               </p>
             </div>
           </div>

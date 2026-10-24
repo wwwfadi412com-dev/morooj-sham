@@ -15,6 +15,9 @@ export interface FAQ {
 
 export interface Area {
   slug: string;
+  order: number;
+  /** Appended to geo-intersection H1s, e.g. "طابو أخضر ومياه وفيرة" */
+  intersectionHook?: string;
   name: string;
   /** Long display name, e.g. "عرطوز وجديدة عرطوز" */
   fullName: string;
@@ -59,6 +62,8 @@ export interface Property {
   /** Max guests, only for daily rentals */
   capacity?: number;
   publishedAt: string;
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 export interface Article {
@@ -73,4 +78,109 @@ export interface Article {
   /** HTML compiled from the markdown written in /admin */
   body: string;
   faqs: FAQ[];
+  seoTitle?: string;
+  seoDescription?: string;
+}
+
+/* ---------- editable site content (content/settings, content/pages) ---------- */
+
+export interface Seo {
+  title: string;
+  description: string;
+}
+
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
+export interface SiteSettings {
+  name: string;
+  nameEn: string;
+  shortName: string;
+  defaultTitle: string;
+  description: string;
+  whatsapp: string;
+  email: string;
+  addressRegion: string;
+  whatsappGreeting: string;
+  propertyTrustNote: string;
+  soldBanner: string;
+  footerAbout: string;
+  ogImage: string;
+}
+
+export interface Navigation {
+  header: NavLink[];
+  footerLinks: NavLink[];
+}
+
+export interface ListingPageContent {
+  h1: string;
+  subtitle: string;
+  seoTitle: string;
+  seoDescription: string;
+  image?: string;
+  faqs?: FAQ[];
+}
+
+export interface CategoryLabels {
+  single: string;
+  plural: string;
+  saleTitle: string;
+  saleDescription: string;
+}
+
+export type TrustIcon = "map-pin" | "file-search" | "hand-coins" | "globe" | "shield" | "camera" | "handshake" | "star";
+
+export interface PagesContent {
+  home: {
+    seo: Seo;
+    hero: { badge: string; title: string; titleHighlight: string; subtitle: string; image: string; imageAlt: string };
+    areasSection: { title: string; subtitle: string };
+    saleSection: { title: string };
+    dailySection: { eyebrow: string; title: string; text: string; button: string };
+    trust: { title: string; subtitle: string; items: { icon: TrustIcon; title: string; text: string }[] };
+    blogSection: { title: string };
+    faqTitle: string;
+    faqs: FAQ[];
+    cta: { title: string; text: string; primaryLabel: string; secondaryLabel: string };
+  };
+  about: {
+    seo: Seo;
+    title: string;
+    subtitle: string;
+    bodyHtml: string;
+    workflowTitle: string;
+    workflow: { title: string; text: string }[];
+    faqs: FAQ[];
+  };
+  "submit-property": {
+    seo: Seo;
+    title: string;
+    subtitle: string;
+    steps: { title: string; text: string }[];
+    submitLabel: string;
+    formNote: string;
+  };
+  "request-property": {
+    seo: Seo;
+    title: string;
+    subtitle: string;
+    introHtml: string;
+    submitLabel: string;
+    formNote: string;
+  };
+  listings: Record<"forSale" | "forRent" | "dailyFarms" | "longTerm" | "areasIndex" | "blogIndex", ListingPageContent>;
+  categories: Record<PropertyType, CategoryLabels>;
+}
+
+export interface CustomPage {
+  slug: string;
+  title: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  image?: string;
+  /** HTML compiled from markdown */
+  body: string;
 }

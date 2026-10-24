@@ -15,13 +15,7 @@ export function generateStaticParams() {
   return Object.values(typeSlugs).flatMap((type) => areas.map((a) => ({ type, areaSlug: a.slug })));
 }
 
-/** Area-specific hook appended to the H1 for extra search intent */
-const hook: Record<string, string> = {
-  darkhabiyah: "طابو أخضر ومياه وفيرة",
-  drousha: "قرب دمشق وبأسعار مناسبة",
-  "khan-al-shih": "مساحات واسعة وأسعار تنافسية",
-  artouz: "الأقرب إلى دمشق",
-};
+const withHook = (title: string, hook?: string) => (hook ? `${title} (${hook})` : title);
 
 async function resolve(params: Params["params"]) {
   const { type, areaSlug } = await params;
@@ -35,7 +29,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!r) return {};
   const title = intersectionTitle(r.t, r.area.fullName);
   return {
-    title: `${title} (${hook[r.area.slug]})`,
+    title: withHook(title, r.area.intersectionHook),
     description: `${title}: عقارات مُعاينة بأوراق مدققة، أسعار محدثة، ومعاينة مجانية مع مروج الشام. ${r.area.tagline}.`,
     alternates: { canonical: `/for-sale/${typeSlugs[r.t]}/${r.area.slug}` },
   };
@@ -49,7 +43,7 @@ export default async function IntersectionPage({ params }: Params) {
 
   return (
     <ListingPage
-      title={`${title} (${hook[area.slug]})`}
+      title={withHook(title, area.intersectionHook)}
       subtitle={`${area.tagline} — ${area.distance}.`}
       image={area.image}
       crumbs={[

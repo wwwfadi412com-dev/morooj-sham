@@ -3,6 +3,7 @@ import { areas } from "@/data/areas";
 import { articles } from "@/data/articles";
 import { properties } from "@/data/properties";
 import { typeSlugs } from "@/data/taxonomy";
+import { customPages } from "@/data/content";
 import { absoluteUrl } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -33,5 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/submit-property", 0.6, "monthly"),
     entry("/request-property", 0.6, "monthly"),
     entry("/about", 0.5, "monthly"),
+    ...customPages.map((p) => entry(`/page/${p.slug}`, 0.3, "yearly")),
   ];
 }

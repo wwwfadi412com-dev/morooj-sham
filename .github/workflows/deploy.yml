@@ -25,7 +25,6 @@ jobs:
       # Clear BASE_PATH and set SITE_URL to https://moroojsham.com when the custom domain is connected.
       NEXT_PUBLIC_BASE_PATH: /morooj-sham
       NEXT_PUBLIC_SITE_URL: https://wwwfadi412com-dev.github.io/morooj-sham
-      NEXT_PUBLIC_WHATSAPP_NUMBER: "963991111474"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

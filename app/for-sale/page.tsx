@@ -3,10 +3,13 @@ import { ListingPage } from "@/components/ListingPage";
 import { filterProperties } from "@/data/properties";
 import { typeLabels, typeSlugs } from "@/data/taxonomy";
 import type { PropertyType } from "@/data/types";
+import { pages } from "@/data/content";
+
+const content = pages.listings.forSale;
 
 export const metadata: Metadata = {
-  title: "عقارات للبيع في ريف دمشق - مزارع وفلل وشقق وأراضي",
-  description: "تصفح مزارع وفلل وشقق وأراضي للبيع في الدرخبية ودروشا وخان الشيح وعرطوز. عقارات مُعاينة بأوراق مدققة ومعاينة مجانية.",
+  title: content.seoTitle,
+  description: content.seoDescription,
   alternates: { canonical: "/for-sale" },
 };
 
@@ -14,8 +17,8 @@ export default function ForSalePage() {
   const types = Object.keys(typeSlugs) as PropertyType[];
   return (
     <ListingPage
-      title="عقارات للبيع في ريف دمشق"
-      subtitle="مزارع وفلل وشقق وأراضٍ مُعاينة على الأرض بأوراق مدققة في الدرخبية ودروشا وخان الشيح وعرطوز."
+      title={content.h1}
+      subtitle={content.subtitle}
       crumbs={[
         { name: "الرئيسية", href: "/" },
         { name: "عقارات للبيع", href: "/for-sale" },

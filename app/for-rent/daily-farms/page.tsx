@@ -3,34 +3,22 @@ import { ListingPage } from "@/components/ListingPage";
 import { FAQ } from "@/components/FAQ";
 import { areas } from "@/data/areas";
 import { filterProperties } from "@/data/properties";
+import { pages } from "@/data/content";
+
+const content = pages.listings.dailyFarms;
 
 export const metadata: Metadata = {
-  title: "مزارع للإيجار اليومي والأسبوعي مع مسبح في ريف دمشق",
-  description: "احجز مزرعة للإيجار اليومي أو الأسبوعي مع مسبح مفلتر وألعاب أطفال في دروشا وخان الشيح والدرخبية. مزارع مُعاينة ونظيفة، والحجز عبر واتساب.",
+  title: content.seoTitle,
+  description: content.seoDescription,
   alternates: { canonical: "/for-rent/daily-farms" },
 };
-
-const faqs = [
-  {
-    q: "كم سعر إيجار مزرعة يومية مع مسبح في ريف دمشق؟",
-    a: "يتراوح السعر تقريبياً بين 60 و200 دولار لليوم حسب المنطقة وحجم المسبح والسعة والموسم، ويتوفر خصم على الحجز الأسبوعي.",
-  },
-  {
-    q: "ماذا يشمل سعر الإيجار اليومي؟",
-    a: "عادة يشمل استخدام المزرعة والمسبح والمرافق من الصباح حتى المساء. نوضح لكل مزرعة ما يشمله السعر ومواعيد الدخول والخروج قبل الحجز.",
-  },
-  {
-    q: "كيف أحجز مزرعة؟",
-    a: "اضغط زر واتساب في صفحة المزرعة، وستصلنا رسالة فيها كود المزرعة تلقائياً لنؤكد لك التوفر في التاريخ المطلوب والسعر النهائي.",
-  },
-];
 
 export default function DailyFarmsPage() {
   return (
     <ListingPage
-      title="مزارع للإيجار اليومي والأسبوعي مع مسبح مفلتر وألعاب أطفال"
-      subtitle="مزارع عائلية مسورة ومُعاينة في دروشا وخان الشيح والدرخبية — احجز بكود المزرعة عبر واتساب."
-      image="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=70"
+      title={content.h1}
+      subtitle={content.subtitle}
+      image={content.image}
       crumbs={[
         { name: "الرئيسية", href: "/" },
         { name: "للإيجار", href: "/for-rent" },
@@ -42,7 +30,7 @@ export default function DailyFarmsPage() {
       ]}
       items={filterProperties({ transaction: "daily-rent" })}
     >
-      <FAQ items={faqs} />
+      {content.faqs && content.faqs.length > 0 && <FAQ items={content.faqs} />}
     </ListingPage>
   );
 }
