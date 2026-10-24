@@ -37,3 +37,16 @@ export function displayPhone(): string {
 export function whatsappLink(message: string): string {
   return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(message)}`;
 }
+
+/**
+ * Images uploaded from /admin are stored as "/uploads/x.jpg". next/image does
+ * not add basePath to those when unoptimized, so prefix them here.
+ */
+export function assetSrc(src: string): string {
+  return src.startsWith("/") ? `${BASE_PATH}${src}` : src;
+}
+
+/** Absolute URL for an image (for JSON-LD), local or remote. */
+export function absoluteAsset(src: string): string {
+  return src.startsWith("/") ? `${SITE.url}${src}` : src;
+}

@@ -1,0 +1,39 @@
+{
+  "code": "D-105",
+  "title": "فيلا ومزرعة للبيع في الدرخبية بمساحة 4 دونم",
+  "type": "farm",
+  "transaction": "sale",
+  "area": "darkhabiyah",
+  "status": "available",
+  "featured": true,
+  "price": 165000,
+  "landArea": 4000,
+  "builtArea": 250,
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "deed": "green-tabu",
+  "deedDetail": "طابو أخضر 2400 سهم",
+  "locationNote": "الدرخبية - يبعد 5 دقائق عن الأوتستراد",
+  "water": "بئر ماء خاص مرخص",
+  "electricity": "شبكة عامة + منظومة طاقة شمسية متكاملة",
+  "amenities": [
+    "مسبح مفلتر",
+    "أشجار مثمرة",
+    "تراس صيفي",
+    "غرفة ناطور",
+    "سور كامل",
+    "مدخل سيارات"
+  ],
+  "description": [
+    "مزرعة متكاملة على مساحة 4 دونم في موقع هادئ من الدرخبية، تضم فيلا من طابقين بمساحة بناء 250 متراً مربعاً بإكساء حديث، مع مسبح مفلتر وتراس صيفي واسع وجلسات خارجية.",
+    "الأرض مزروعة بأكثر من 120 شجرة مثمرة (زيتون، كرز، جوز، عنب)، ومسورة بالكامل مع بوابة رئيسية لدخول السيارات وغرفة ناطور مستقلة.",
+    "تتمتع المزرعة ببئر ماء خاص مرخص ومنظومة طاقة شمسية متكاملة تغطي احتياجات الفيلا والمسبح، والملكية طابو أخضر جاهز للفراغ."
+  ],
+  "images": [
+    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=75"
+  ],
+  "publishedAt": "2026-09-12"
+}

@@ -1,0 +1,35 @@
+{
+  "code": "KH-320",
+  "title": "مزرعة للإيجار اليومي في خان الشيح مع مسبح كبير",
+  "type": "farm",
+  "transaction": "daily-rent",
+  "area": "khan-al-shih",
+  "status": "available",
+  "price": 90,
+  "capacity": 30,
+  "landArea": 3000,
+  "builtArea": 110,
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "deed": "green-tabu",
+  "deedDetail": "طابو أخضر",
+  "locationNote": "خان الشيح - منطقة المزارع",
+  "water": "بئر خاص",
+  "electricity": "طاقة شمسية + مولدة",
+  "amenities": [
+    "مسبح كبير 12×6 م",
+    "ملعب كرة قدم صغير",
+    "ألعاب أطفال",
+    "منطقة شواء"
+  ],
+  "description": [
+    "مزرعة بمساحة 3 دونم مع مسبح كبير ومساحات خضراء واسعة وملعب صغير، مثالية للتجمعات العائلية الكبيرة.",
+    "تتسع حتى 30 شخصاً، والسعر لليوم الكامل."
+  ],
+  "images": [
+    "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1400&q=75"
+  ],
+  "publishedAt": "2026-09-30",
+  "featured": false
+}

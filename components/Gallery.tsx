@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { assetSrc } from "@/lib/site";
 import { WatermarkedImage } from "./WatermarkedImage";
 
 export function Gallery({ images, code, title, dimmed = false }: { images: string[]; code: string; title: string; dimmed?: boolean }) {
@@ -30,7 +31,7 @@ export function Gallery({ images, code, title, dimmed = false }: { images: strin
                 i === active ? "border-gold" : "border-transparent opacity-70 hover:opacity-100"
               }`}
             >
-              <Image src={src} alt="" fill sizes="112px" className="object-cover" loading="lazy" />
+              <Image src={assetSrc(src)} alt="" fill sizes="112px" className="object-cover" loading="lazy" />
             </button>
           ))}
         </div>

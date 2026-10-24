@@ -1,7 +1,7 @@
 import type { Area, Article, FAQ, Property } from "@/data/types";
 import { areas } from "@/data/areas";
 import { deedLabels, typeLabels } from "@/data/taxonomy";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { SITE, absoluteAsset, absoluteUrl } from "@/lib/site";
 
 export function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
   return (
@@ -98,7 +98,7 @@ export function listingSchema(p: Property) {
       name: p.title,
       url,
       datePosted: p.publishedAt,
-      image: p.images,
+      image: p.images.map(absoluteAsset),
       description: p.description.join(" "),
       offers: {
         "@type": "Offer",
@@ -126,7 +126,7 @@ export function listingSchema(p: Property) {
       "@type": "Product",
       name: p.title,
       sku: p.code,
-      image: p.images,
+      image: p.images.map(absoluteAsset),
       description: p.description[0],
       brand: { "@type": "Brand", name: SITE.name },
       category: typeLabels[p.type].single,
@@ -144,7 +144,7 @@ export const articleSchema = (a: Article) => ({
   "@type": "Article",
   headline: a.title,
   description: a.excerpt,
-  image: a.image,
+  image: absoluteAsset(a.image),
   datePublished: a.publishedAt,
   dateModified: a.publishedAt,
   inLanguage: "ar",

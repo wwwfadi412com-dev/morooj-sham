@@ -1,0 +1,35 @@
+{
+  "code": "AR-402",
+  "title": "شقة سكنية للبيع في جديدة عرطوز بمساحة 130 م²",
+  "type": "apartment",
+  "transaction": "sale",
+  "area": "artouz",
+  "status": "available",
+  "featured": true,
+  "price": 38000,
+  "builtArea": 130,
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "deed": "green-tabu",
+  "deedDetail": "طابو أخضر - شقة مفرزة",
+  "locationNote": "جديدة عرطوز - قرب الطريق الرئيسي",
+  "water": "شبكة عامة",
+  "electricity": "شبكة عامة + منظومة طاقة شمسية خاصة",
+  "amenities": [
+    "طابق أول",
+    "إكساء سوبر ديلوكس",
+    "بلكونتان",
+    "مصعد",
+    "موقف سيارة"
+  ],
+  "description": [
+    "شقة بمساحة 130 متراً مربعاً في الطابق الأول بإكساء سوبر ديلوكس، 3 غرف نوم وصالون وصالة ومطبخ مفتوح وحمامين.",
+    "الملكية طابو أخضر مفرز، مع منظومة طاقة شمسية خاصة بالشقة وموقف سيارة."
+  ],
+  "images": [
+    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1400&q=75"
+  ],
+  "publishedAt": "2026-10-05"
+}

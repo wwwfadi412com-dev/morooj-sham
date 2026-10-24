@@ -61,14 +61,6 @@ export interface Property {
   publishedAt: string;
 }
 
-export type ArticleBlock =
-  | { type: "h2"; text: string }
-  | { type: "h3"; text: string }
-  | { type: "p"; text: string }
-  | { type: "ul"; items: string[] }
-  | { type: "ol"; items: string[] }
-  | { type: "table"; head: string[]; rows: string[][] };
-
 export interface Article {
   slug: string;
   title: string;
@@ -78,6 +70,7 @@ export interface Article {
   readMinutes: number;
   category: string;
   keyTakeaways: string[];
-  body: ArticleBlock[];
+  /** HTML compiled from the markdown written in /admin */
+  body: string;
   faqs: FAQ[];
 }

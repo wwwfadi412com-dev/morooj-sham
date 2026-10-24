@@ -1,0 +1,132 @@
+# Sveltia CMS configuration (Decap/Netlify CMS compatible).
+# Every save commits to GitHub; .github/workflows/deploy.yml then rebuilds the site.
+# scripts/build-content.mjs validates entries and fails the build on bad data.
+
+backend:
+  name: github
+  repo: wwwfadi412com-dev/morooj-sham
+  branch: main
+  commit_messages:
+    create: "إضافة {{collection}}: {{slug}}"
+    update: "تعديل {{collection}}: {{slug}}"
+    delete: "حذف {{collection}}: {{slug}}"
+    uploadMedia: "رفع صورة: {{path}}"
+    deleteMedia: "حذف صورة: {{path}}"
+
+site_url: https://wwwfadi412com-dev.github.io/morooj-sham/
+display_url: https://wwwfadi412com-dev.github.io/morooj-sham/
+logo_url: https://wwwfadi412com-dev.github.io/morooj-sham/icon.svg
+
+media_folder: public/uploads
+public_folder: /uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: properties
+    label: العقارات
+    label_singular: عقار
+    description: أضف العقارات وعدّلها. لتعليم عقار كمباع غيّر «الحالة» إلى «تم البيع» ولا تحذفه.
+    folder: content/properties
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{type}}-{{area}}-{{code}}"
+    identifier_field: code
+    summary: "{{code}} — {{title}}"
+    sortable_fields: [publishedAt, code, price, title]
+    view_filters:
+      - { label: متاح, field: status, pattern: available }
+      - { label: تم البيع, field: status, pattern: sold }
+      - { label: للبيع, field: transaction, pattern: sale }
+      - { label: إيجار يومي, field: transaction, pattern: daily-rent }
+    fields:
+      - { name: code, label: كود العقار, widget: string, hint: "مثال: D-140 للدرخبية، DR-240 لدروشا، KH-330 لخان الشيح، AR-450 لعرطوز. يجب ألا يتكرر.", pattern: ['^[A-Za-z]{1,3}-\d+$', "الصيغة: حروف ثم شرطة ثم رقم، مثل D-140"] }
+      - { name: title, label: عنوان العقار, widget: string, hint: "مثال: مزرعة للبيع في الدرخبية بمساحة 3 دونم مع مسبح" }
+      - name: type
+        label: نوع العقار
+        widget: select
+        options:
+          - { label: مزرعة, value: farm }
+          - { label: فيلا / منزل مستقل, value: villa }
+          - { label: شقة سكنية, value: apartment }
+          - { label: أرض / مقسم, value: land }
+      - name: transaction
+        label: نوع العملية
+        widget: select
+        options:
+          - { label: للبيع, value: sale }
+          - { label: إيجار يومي / سياحي, value: daily-rent }
+          - { label: إيجار شهري / سنوي, value: long-term-rent }
+      - name: area
+        label: المنطقة
+        widget: select
+        options:
+          - { label: الدرخبية, value: darkhabiyah }
+          - { label: دروشا, value: drousha }
+          - { label: خان الشيح, value: khan-al-shih }
+          - { label: عرطوز وجديدة عرطوز, value: artouz }
+      - name: status
+        label: الحالة
+        widget: select
+        default: available
+        options:
+          - { label: متاح, value: available }
+          - { label: تم البيع, value: sold }
+          - { label: مؤجر حالياً, value: rented }
+      - { name: featured, label: عقار مميز, widget: boolean, default: false, required: false }
+      - { name: price, label: السعر بالدولار, widget: number, value_type: int, min: 1, hint: "للبيع: السعر الكامل. للإيجار اليومي: سعر اليوم. للإيجار الشهري: سعر الشهر." }
+      - { name: landArea, label: المساحة الإجمالية (م²), widget: number, value_type: int, required: false, hint: "الدونم = 1000 م²" }
+      - { name: builtArea, label: مساحة البناء (م²), widget: number, value_type: int, required: false }
+      - { name: bedrooms, label: غرف النوم, widget: number, value_type: int, required: false }
+      - { name: bathrooms, label: الحمامات, widget: number, value_type: int, required: false }
+      - { name: capacity, label: السعة (عدد الأشخاص), widget: number, value_type: int, required: false, hint: للإيجار اليومي فقط }
+      - name: deed
+        label: نوع الملكية
+        widget: select
+        options:
+          - { label: طابو أخضر, value: green-tabu }
+          - { label: طابو زراعي, value: agricultural-tabu }
+          - { label: حكم محكمة, value: court-ruling }
+          - { label: كاتب عدل, value: notary }
+      - { name: deedDetail, label: تفاصيل الملكية, widget: string, hint: "مثال: طابو أخضر 2400 سهم" }
+      - { name: locationNote, label: وصف الموقع, widget: string, hint: "تقريبي فقط، بدون عنوان دقيق. مثال: الدرخبية - 5 دقائق عن الأوتستراد" }
+      - { name: water, label: مصادر المياه, widget: string }
+      - { name: electricity, label: الكهرباء والطاقة, widget: string }
+      - { name: amenities, label: المرافق, widget: list, field: { name: item, label: ميزة, widget: string }, hint: "مثال: مسبح مفلتر، أشجار مثمرة" }
+      - { name: description, label: الوصف (فقرات), widget: list, min: 1, field: { name: paragraph, label: فقرة, widget: text } }
+      - { name: images, label: الصور, widget: list, min: 1, field: { name: image, label: صورة, widget: image }, hint: "الصورة الأولى هي صورة الغلاف. لا تُظهر لافتات أو أرقام تدل على الموقع." }
+      - { name: publishedAt, label: تاريخ النشر, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, default: "{{now}}" }
+
+  - name: articles
+    label: المقالات
+    label_singular: مقال
+    folder: content/articles
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{urlSlug}}"
+    summary: "{{title}}"
+    sortable_fields: [publishedAt, title]
+    fields:
+      - { name: title, label: العنوان, widget: string }
+      - { name: urlSlug, label: رابط المقال بالإنجليزية, widget: string, hint: "حروف إنجليزية صغيرة وشرطات فقط، مثل: farm-prices-2027. لا يتغير بعد النشر.", pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "حروف إنجليزية صغيرة وأرقام وشرطات فقط"] }
+      - { name: excerpt, label: ملخص قصير, widget: text }
+      - { name: image, label: الصورة الرئيسية, widget: image }
+      - { name: category, label: التصنيف, widget: select, options: [دليل الشراء, قانوني, دليل المناطق, إيجار يومي, استثمار, أخبار السوق] }
+      - { name: publishedAt, label: تاريخ النشر, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, default: "{{now}}" }
+      - { name: readMinutes, label: مدة القراءة (دقائق), widget: number, value_type: int, required: false, hint: اتركه فارغاً ليُحسب تلقائياً }
+      - { name: keyTakeaways, label: خلاصة سريعة, widget: list, field: { name: point, label: نقطة, widget: string }, hint: 3 إلى 5 نقاط تلخص المقال }
+      - { name: body, label: نص المقال, widget: markdown, hint: "استخدم العناوين (H2) بصيغة أسئلة مثل: ما هي أسعار المزارع في دروشا؟ للروابط الداخلية استخدم مسارات مثل /areas/drousha" }
+      - name: faqs
+        label: الأسئلة الشائعة
+        widget: list
+        required: false
+        fields:
+          - { name: q, label: السؤال, widget: string }
+          - { name: a, label: الجواب, widget: text }

@@ -5,11 +5,12 @@ import { notFound } from "next/navigation";
 import { Clock } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { KeyTakeaways } from "@/components/KeyTakeaways";
-import { Blocks } from "@/components/RichText";
+import { ArticleBody } from "@/components/ArticleBody";
 import { FAQ } from "@/components/FAQ";
 import { JsonLd, articleSchema } from "@/components/JsonLd";
 import { articles, getArticle } from "@/data/articles";
 import { formatDate } from "@/lib/format";
+import { assetSrc } from "@/lib/site";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -59,7 +60,7 @@ export default async function ArticlePage({ params }: Params) {
           <p className="mt-4 text-lg text-muted">{a.excerpt}</p>
         </header>
         <div className="relative mt-6 aspect-[16/8] overflow-hidden rounded-card">
-          <Image src={a.image} alt={a.title} fill priority sizes="(max-width: 896px) 100vw, 896px" className="object-cover" />
+          <Image src={assetSrc(a.image)} alt={a.title} fill priority sizes="(max-width: 896px) 100vw, 896px" className="object-cover" />
         </div>
 
         <div className="mt-8">
@@ -67,7 +68,7 @@ export default async function ArticlePage({ params }: Params) {
         </div>
 
         <div className="mt-6">
-          <Blocks blocks={a.body} />
+          <ArticleBody html={a.body} />
         </div>
 
         <div className="mt-12">

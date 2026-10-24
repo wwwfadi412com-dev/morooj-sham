@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "content": "node scripts/build-content.mjs",
+    "predev": "npm run content",
     "dev": "next dev",
+    "prebuild": "npm run content",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "deploy": "node scripts/deploy-gh-pages.mjs"
+    "typecheck": "npm run content && tsc --noEmit"
   },
   "dependencies": {
     "lucide-react": "^1.61.0",
+    "marked": "^18.0.14",
     "next": "^15.5.28",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

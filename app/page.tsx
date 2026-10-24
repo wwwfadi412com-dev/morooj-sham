@@ -9,6 +9,7 @@ import { areas } from "@/data/areas";
 import { articles } from "@/data/articles";
 import { countByArea, filterProperties } from "@/data/properties";
 import { formatDate } from "@/lib/format";
+import { assetSrc } from "@/lib/site";
 
 const HERO = "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2000&q=70";
 
@@ -173,7 +174,7 @@ export default function HomePage() {
             {articles.slice(0, 4).map((a) => (
               <Link key={a.slug} href={`/blog/${a.slug}`} className="card group flex gap-4 overflow-hidden p-3">
                 <div className="relative h-24 w-28 shrink-0 overflow-hidden rounded-md">
-                  <Image src={a.image.replace("w=1400", "w=300")} alt="" fill sizes="112px" className="object-cover" />
+                  <Image src={assetSrc(a.image.replace("w=1400", "w=300"))} alt="" fill sizes="112px" className="object-cover" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-gold">

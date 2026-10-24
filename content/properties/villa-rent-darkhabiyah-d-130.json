@@ -1,0 +1,33 @@
+{
+  "code": "D-130",
+  "title": "فيلا مع حديقة للإيجار السنوي في الدرخبية",
+  "type": "villa",
+  "transaction": "long-term-rent",
+  "area": "darkhabiyah",
+  "status": "available",
+  "price": 450,
+  "landArea": 1200,
+  "builtArea": 200,
+  "bedrooms": 4,
+  "bathrooms": 2,
+  "deed": "green-tabu",
+  "deedDetail": "طابو أخضر",
+  "locationNote": "الدرخبية - قرب المدخل الرئيسي",
+  "water": "بئر خاص + شبكة عامة",
+  "electricity": "شبكة عامة + طاقة شمسية",
+  "amenities": [
+    "حديقة 1000 م²",
+    "شبه مفروشة",
+    "كراج",
+    "تدفئة"
+  ],
+  "description": [
+    "فيلا بمساحة 200 متر مربع مع حديقة واسعة للإيجار السنوي، شبه مفروشة ومجهزة بالطاقة الشمسية."
+  ],
+  "images": [
+    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1400&q=75"
+  ],
+  "publishedAt": "2026-10-10",
+  "featured": false
+}

@@ -107,3 +107,11 @@
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+/* Article body from the CMS: first column of tables reads as a label */
+.prose-ms td:first-child {
+  @apply font-bold text-emerald;
+}
+.prose-ms img {
+  @apply my-6 rounded-card;
+}

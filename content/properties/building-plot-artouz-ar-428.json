@@ -1,0 +1,29 @@
+{
+  "code": "AR-428",
+  "title": "مقسم معد للبناء للبيع في عرطوز بمساحة 600 م²",
+  "type": "land",
+  "transaction": "sale",
+  "area": "artouz",
+  "status": "available",
+  "price": 42000,
+  "landArea": 600,
+  "deed": "green-tabu",
+  "deedDetail": "طابو أخضر - مقسم تنظيمي",
+  "locationNote": "عرطوز - ضمن المخطط التنظيمي",
+  "water": "شبكة عامة على حدود المقسم",
+  "electricity": "شبكة عامة على حدود المقسم",
+  "amenities": [
+    "ضمن التنظيم",
+    "واجهتان",
+    "رخصة بناء ممكنة"
+  ],
+  "description": [
+    "مقسم معد للبناء بمساحة 600 متر مربع ضمن المخطط التنظيمي لعرطوز، بواجهتين على طريقين، مناسب لبناء فيلا أو بناء سكني صغير."
+  ],
+  "images": [
+    "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?auto=format&fit=crop&w=1400&q=75"
+  ],
+  "publishedAt": "2026-08-30",
+  "featured": false
+}
