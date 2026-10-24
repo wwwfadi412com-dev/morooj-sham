@@ -53,7 +53,7 @@ export const organizationSchema = () => ({
   alternateName: SITE.nameEn,
   url: SITE.url,
   logo: absoluteUrl("/icon.svg"),
-  image: absoluteUrl("/opengraph-image"),
+  image: absoluteUrl("/og.png"),
   description: SITE.description,
   telephone: `+${SITE.whatsapp}`,
   email: SITE.email,

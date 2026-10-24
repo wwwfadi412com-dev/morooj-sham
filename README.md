@@ -40,7 +40,20 @@ npm run build      # بناء الإنتاج + فحص الأنواع
 - `/llms.txt` و `/llms-full.txt` تُولَّد تلقائياً من البيانات.
 - JSON-LD: `RealEstateAgent` و `WebSite` (الرئيسية)، `RealEstateListing` + `Product` (العقار)، `BreadcrumbList`، `FAQPage`، `Article`.
 
-## النشر
+## النشر (GitHub Pages — مجاني)
 
-مربوط بـ Vercel: أي `git push` على فرع `main` ينشر نسخة جديدة تلقائياً.
-عند شراء الدومين: Vercel → Project → Settings → Domains → أضف `moroojsham.com`، ثم حدّث `NEXT_PUBLIC_SITE_URL`.
+الموقع يُصدَّر كملفات ثابتة (`output: "export"`) ويُنشر على فرع `gh-pages`:
+
+```bash
+npm run deploy
+```
+
+الرابط الحالي: https://wwwfadi412com-dev.github.io/morooj-sham/
+
+> ملاحظة: Vercel وبعض المنصات الأمريكية تحجب التسجيل من سوريا، لذلك اعتمدنا GitHub Pages مبدئياً.
+
+**عند شراء الدومين والسيرفر المدفوع:**
+1. اجعل `NEXT_PUBLIC_BASE_PATH` فارغاً و`NEXT_PUBLIC_SITE_URL=https://moroojsham.com`.
+2. شغّل `npm run build`، وارفع محتوى مجلد `out/` إلى أي استضافة (أو اربط الدومين بـ GitHub Pages من Settings → Pages → Custom domain).
+
+`robots.txt` يجب أن يكون في جذر الدومين ليقرأه محرك البحث، وهذا يتحقق تلقائياً عند ربط الدومين الخاص.

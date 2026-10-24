@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 const AI_AND_SEARCH_BOTS = [
   "Googlebot",
   "Bingbot",

@@ -1,21 +1,20 @@
-/** @type {import('next').NextConfig} */
+/**
+ * Static export so the site can be hosted on any static host (GitHub Pages
+ * now, a paid server/CDN later). NEXT_PUBLIC_BASE_PATH is "/morooj-sham" on
+ * GitHub Pages project sites and empty on a custom domain.
+ * @type {import('next').NextConfig}
+ */
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const nextConfig = {
+  output: "export",
+  basePath,
+  trailingSlash: true,
   poweredByHeader: false,
   images: {
-    formats: ["image/avif", "image/webp"],
+    // No image optimisation server on static hosting; Unsplash URLs already carry w/q params.
+    unoptimized: true,
     remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
-  },
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-        ],
-      },
-    ];
   },
 };
 

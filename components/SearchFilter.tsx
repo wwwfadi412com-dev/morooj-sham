@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import { areas } from "@/data/areas";
+import { BASE_PATH } from "@/lib/site";
 
 interface Props {
   defaults?: { area?: string; type?: string; deal?: string };
@@ -13,7 +14,7 @@ interface Props {
 export function SearchFilter({ defaults = {}, compact = false }: Props) {
   return (
     <form
-      action="/search"
+      action={`${BASE_PATH}/search/`}
       method="get"
       role="search"
       aria-label="البحث عن عقار"

@@ -1,13 +1,13 @@
 /**
  * Global site configuration. Values that change between environments
  * (domain, WhatsApp number) come from env vars so moving from the free
- * Vercel subdomain to moroojsham.com is a config change, not a code change.
+ * GitHub Pages URL to moroojsham.com is a config change, not a code change.
  */
 export const SITE = {
   name: "مروج الشام العقارية",
   nameEn: "Morooj Sham Real Estate",
   shortName: "مروج الشام",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://moroojsham.vercel.app").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://wwwfadi412com-dev.github.io/morooj-sham").replace(/\/$/, ""),
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "963900000000",
   email: "info@moroojsham.com",
   description:
@@ -16,8 +16,16 @@ export const SITE = {
   defaultTitle: "مروج الشام العقارية | مزارع وفلل وشقق وأراضي للبيع والإيجار في ريف دمشق",
 } as const;
 
+/** Prefix for raw (non next/link) URLs such as plain <form action>. */
+export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+/** Absolute URL with a trailing slash on pages (matches trailingSlash: true), none on files. */
 export function absoluteUrl(path = "/"): string {
-  return `${SITE.url}${path.startsWith("/") ? path : `/${path}`}`;
+  let p = path.startsWith("/") ? path : `/${path}`;
+  const [pathname, hash = ""] = p.split("#");
+  const isFile = /\.[a-z0-9]+$/i.test(pathname);
+  p = !isFile && !pathname.endsWith("/") ? `${pathname}/` : pathname;
+  return `${SITE.url}${p}${hash ? `#${hash}` : ""}`;
 }
 
 /** Pretty-print the WhatsApp number for display, e.g. +963 900 000 000 */

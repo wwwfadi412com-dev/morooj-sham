@@ -5,6 +5,8 @@ import { properties } from "@/data/properties";
 import { typeSlugs } from "@/data/taxonomy";
 import { absoluteUrl } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const entry = (path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "weekly", lastModified: Date = now) => ({

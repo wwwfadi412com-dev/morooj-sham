@@ -22,8 +22,9 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: SITE.defaultTitle,
     description: SITE.description,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: SITE.nameEn }],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: { card: "summary_large_image", images: ["/og.png"] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   formatDetection: { telephone: false },
 };
