@@ -21,9 +21,9 @@ const config: Config = {
         muted: "#5A6566",
       },
       fontFamily: {
-        heading: ["var(--font-cairo)", "sans-serif"],
-        body: ["var(--font-tajawal)", "sans-serif"],
-        latin: ["var(--font-montserrat)", "sans-serif"],
+        heading: ["Cairo", "sans-serif"],
+        body: ["Tajawal", "sans-serif"],
+        latin: ["Montserrat", "sans-serif"],
       },
       borderRadius: {
         card: "var(--ms-radius-card)",

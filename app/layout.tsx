@@ -1,14 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Cairo, Montserrat, Tajawal } from "next/font/google";
+// Fonts are self-hosted from npm (no build-time fetch from Google Fonts,
+// which made CI deploys flaky). Each CSS file carries unicode-range subsets.
+import "@fontsource/cairo/700.css";
+import "@fontsource/cairo/800.css";
+import "@fontsource/tajawal/400.css";
+import "@fontsource/tajawal/500.css";
+import "@fontsource/tajawal/700.css";
+import "@fontsource/montserrat/600.css";
+import "@fontsource/montserrat/700.css";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MobileBar } from "@/components/MobileBar";
 import { SITE } from "@/lib/site";
-
-const cairo = Cairo({ subsets: ["arabic", "latin"], weight: ["700", "800"], variable: "--font-cairo", display: "swap" });
-const tajawal = Tajawal({ subsets: ["arabic", "latin"], weight: ["400", "500", "700"], variable: "--font-tajawal", display: "swap" });
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-montserrat", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -37,7 +41,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ar" dir="rtl" className={`${cairo.variable} ${tajawal.variable} ${montserrat.variable}`}>
+    <html lang="ar" dir="rtl">
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:right-4 focus:top-4 focus:z-50 focus:rounded-btn focus:bg-gold focus:px-4 focus:py-2 focus:text-emerald">
           تخطَّ إلى المحتوى
