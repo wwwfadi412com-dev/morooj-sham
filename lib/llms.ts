@@ -1,5 +1,6 @@
 import { areas } from "@/data/areas";
 import { articles } from "@/data/articles";
+import { pages } from "@/data/content";
 import { properties } from "@/data/properties";
 import { deedLabels, intersectionTitle, transactionLabels, typeLabels, typeSlugs } from "@/data/taxonomy";
 import type { PropertyType } from "@/data/types";
@@ -7,6 +8,8 @@ import { formatPrice } from "./format";
 import { SITE, absoluteUrl } from "./site";
 
 const types = Object.keys(typeSlugs) as PropertyType[];
+const contracting = pages.contracting;
+const priceIndex = pages["price-index"];
 
 /** Builds /llms.txt (summary) or /llms-full.txt (full knowledge base) per the llmstxt.org format. */
 export function buildLlmsTxt(full: boolean): string {
@@ -60,6 +63,21 @@ export function buildLlmsTxt(full: boolean): string {
   L.push(`- [اطلب عقارك بمواصفات خاصة](${absoluteUrl("/request-property")}): sourcing service for buyers and expatriates.`);
   L.push(`- [أضف عقارك للتسويق](${absoluteUrl("/submit-property")}): for owners and trusted local offices.`);
   L.push(`- [من نحن](${absoluteUrl("/about")})`);
+  L.push("");
+  L.push("## Contracting & finishing (التعهدات والإكساء)");
+  L.push(`- [التعهدات والإكساء](${absoluteUrl("/contracting")}): ${contracting.seo.description}`);
+  for (const s of contracting.services) L.push(`- ${s.title}: ${s.text}`);
+  L.push(`- ${contracting.weekly.title}: ${contracting.weekly.steps.map((s) => s.title).join("، ")}.`);
+  L.push(`- Cost estimator: ${absoluteUrl("/contracting")}#calculator`);
+  L.push("");
+  L.push(`## Price index (مؤشر الأسعار) — updated ${priceIndex.updatedAt}`);
+  L.push(`- [مؤشر أسعار العقارات في ريف دمشق](${absoluteUrl("/price-index")})`);
+  for (const a of areas.filter((x) => x.priceIndex)) {
+    const i = a.priceIndex!;
+    L.push(
+      `- ${a.fullName}: الدونم الزراعي ${i.agriDunum.min}–${i.agriDunum.max} $، متر الشقة ${i.apartmentM2.min}–${i.apartmentM2.max} $، متر الفيلا ${i.villaM2.min}–${i.villaM2.max} $، إكساء المتر ${i.finishingM2.min}–${i.finishingM2.max} $، إيجار المزرعة اليومي ${i.dailyRent.min}–${i.dailyRent.max} $`,
+    );
+  }
 
   if (!full) {
     L.push("");

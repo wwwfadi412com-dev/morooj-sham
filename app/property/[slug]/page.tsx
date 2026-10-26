@@ -7,11 +7,15 @@ import { Gallery } from "@/components/Gallery";
 import { PropertyGrid } from "@/components/PropertyCard";
 import { JsonLd, listingSchema } from "@/components/JsonLd";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { ContractingCallout } from "@/components/ContractingCallout";
+import { PrintButton } from "@/components/PrintButton";
+import { BrandLogo } from "@/components/BrandLogo";
+import { WatermarkedImage } from "@/components/WatermarkedImage";
 import { getArea } from "@/data/areas";
 import { getProperty, properties, similarProperties } from "@/data/properties";
 import { deedLabels, transactionLabels, typeLabels, typeSlugs } from "@/data/taxonomy";
 import { formatArea, formatPrice, propertyWhatsappMessage } from "@/lib/format";
-import { SITE, whatsappLink } from "@/lib/site";
+import { SITE, absoluteUrl, displayPhone, whatsappLink } from "@/lib/site";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -65,6 +69,15 @@ export default async function PropertyPage({ params }: Params) {
     <>
       <JsonLd data={listingSchema(p)} />
 
+      {/* Print / PDF brochure header (hidden on screen) */}
+      <div className="hidden border-b-4 border-gold bg-emerald px-6 py-4 print:flex print:items-center print:justify-between">
+        <BrandLogo />
+        <div className="text-left text-white">
+          <p className="font-latin text-2xl font-bold text-gold">{p.code}</p>
+          <p className="text-xs text-white/80">بطاقة عقار · {SITE.name}</p>
+        </div>
+      </div>
+
       {sold && (
         <div className="border-b-4 border-gold bg-red-800 text-white">
           <div className="container flex flex-col items-start gap-3 py-4 md:flex-row md:items-center md:justify-between">
@@ -72,7 +85,7 @@ export default async function PropertyPage({ params }: Params) {
               <AlertTriangle className="h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
               {SITE.soldBanner}
             </p>
-            <a href="#similar" className="btn-gold !py-2 text-xs">
+            <a href="#similar" className="btn-gold !py-2 text-xs print:hidden">
               عرض العقارات المشابهة
             </a>
           </div>
@@ -80,14 +93,16 @@ export default async function PropertyPage({ params }: Params) {
       )}
 
       <div className="container py-6 md:py-8">
-        <Breadcrumbs
-          items={[
-            { name: "الرئيسية", href: "/" },
-            { name: `عقارات ${area.fullName}`, href: `/areas/${area.slug}` },
-            categoryCrumb,
-            { name: `${typeLabels[p.type].single} كود ${p.code}`, href: `/property/${p.slug}` },
-          ]}
-        />
+        <div className="print:hidden">
+          <Breadcrumbs
+            items={[
+              { name: "الرئيسية", href: "/" },
+              { name: `عقارات ${area.fullName}`, href: `/areas/${area.slug}` },
+              categoryCrumb,
+              { name: `${typeLabels[p.type].single} كود ${p.code}`, href: `/property/${p.slug}` },
+            ]}
+          />
+        </div>
 
         <header className="mt-4">
           <h1 className="text-2xl font-extrabold !leading-[1.4] md:text-3xl">
@@ -106,7 +121,7 @@ export default async function PropertyPage({ params }: Params) {
       </div>
 
       {sold && similar.length > 0 && (
-        <section id="similar" className="bg-white py-10" aria-labelledby="similar-top">
+        <section id="similar" className="bg-white py-10 print:hidden" aria-labelledby="similar-top">
           <div className="container">
             <h2 id="similar-top" className="section-title mb-6">
               عقارات مشابهة متاحة الآن في {area.fullName} وما حولها
@@ -119,6 +134,13 @@ export default async function PropertyPage({ params }: Params) {
       <div className="container grid gap-8 py-8 lg:grid-cols-[1fr_360px]">
         <div className="min-w-0 space-y-10">
           <Gallery images={p.images} code={p.code} title={p.title} dimmed={sold} />
+          {p.images.length > 1 && (
+            <div className="hidden grid-cols-3 gap-2 print:grid" aria-hidden="true">
+              {p.images.slice(1, 4).map((src) => (
+                <WatermarkedImage key={src} src={src} alt="" code={p.code} sizes="33vw" className="aspect-[4/3] rounded-md" />
+              ))}
+            </div>
+          )}
 
           <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {p.landArea && <Stat label="المساحة" value={formatArea(p.landArea).split(" (")[0]} />}
@@ -156,7 +178,9 @@ export default async function PropertyPage({ params }: Params) {
             </div>
           </section>
 
-          <section>
+          {!sold && (p.type === "land" || p.needsFinishing) && <ContractingCallout p={p} />}
+
+          <section className="print:break-inside-avoid">
             <h2 className="section-title mb-4">المرافق والمزايا</h2>
             <ul className="grid gap-2 sm:grid-cols-2">
               {p.amenities.map((a) => (
@@ -166,7 +190,7 @@ export default async function PropertyPage({ params }: Params) {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-sm text-muted">
+            <p className="mt-4 text-sm text-muted print:hidden">
               الموقع التقريبي: {area.fullName}، ريف دمشق. يُكشف الموقع الدقيق خلال المعاينة برفقة مستشارنا.{" "}
               <Link href={`/areas/${area.slug}`} className="font-bold text-meadow underline">
                 تعرف على {area.fullName}
@@ -185,6 +209,7 @@ export default async function PropertyPage({ params }: Params) {
               </p>
             </div>
             <div className="space-y-4 p-5">
+              <div className="space-y-4 print:hidden">
               {sold ? (
                 <>
                   <button type="button" disabled className="btn w-full bg-gray-300 text-gray-600">
@@ -203,6 +228,8 @@ export default async function PropertyPage({ params }: Params) {
               <Link href="/request-property" className="btn-outline w-full">
                 اطلب عقاراً بمواصفات مشابهة
               </Link>
+              <PrintButton />
+              </div>
               <p className="flex gap-2 rounded-btn bg-alabaster p-3 text-xs leading-6 text-muted">
                 <ShieldCheck className="h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
                 {SITE.propertyTrustNote}
@@ -212,8 +239,24 @@ export default async function PropertyPage({ params }: Params) {
         </aside>
       </div>
 
+      {/* Print / PDF brochure footer (hidden on screen) */}
+      <div className="hidden px-6 pt-4 text-sm print:block">
+        <div className="flex items-center justify-between gap-4 rounded-card border-2 border-gold p-4">
+          <div>
+            <p className="font-heading font-bold text-emerald">للاستفسار وحجز المعاينة — اذكر الكود {p.code}</p>
+            <p className="mt-1 font-latin" dir="ltr">
+              WhatsApp {displayPhone()} · {SITE.email}
+            </p>
+          </div>
+          <p className="max-w-[45%] break-all text-left font-latin text-xs text-muted" dir="ltr">
+            {absoluteUrl(`/property/${p.slug}`)}
+          </p>
+        </div>
+        <p className="mt-3 text-center text-xs text-muted">الأسعار والمعلومات صحيحة بتاريخ الطباعة وقابلة للتغيير. © {SITE.name}</p>
+      </div>
+
       {!sold && similar.length > 0 && (
-        <section id="similar" className="container py-10" aria-labelledby="similar-bottom">
+        <section id="similar" className="container py-10 print:hidden" aria-labelledby="similar-bottom">
           <h2 id="similar-bottom" className="section-title mb-6">
             عقارات مشابهة قد تهمك
           </h2>
@@ -222,7 +265,7 @@ export default async function PropertyPage({ params }: Params) {
       )}
 
       {/* Mobile sticky CTA overrides the global mobile bar on this page */}
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-black/5 bg-white p-3 shadow-[0_-6px_20px_rgba(15,61,46,0.12)] md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-black/5 bg-white p-3 shadow-[0_-6px_20px_rgba(15,61,46,0.12)] print:hidden md:hidden">
         <div className="flex items-center gap-3">
           <div className="min-w-0">
             <p className="font-latin text-xs font-bold text-gold">{p.code}</p>

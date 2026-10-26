@@ -1,15 +1,55 @@
 {
   "header": [
-    { "label": "عقارات للبيع", "href": "/for-sale" },
-    { "label": "مزارع للإيجار اليومي", "href": "/for-rent/daily-farms" },
-    { "label": "إيجار شهري وسنوي", "href": "/for-rent/long-term" },
-    { "label": "المناطق", "href": "/areas" },
-    { "label": "دليل العقارات", "href": "/blog" },
-    { "label": "من نحن", "href": "/about" }
+    {
+      "label": "عقارات للبيع",
+      "href": "/for-sale"
+    },
+    {
+      "label": "مزارع للإيجار اليومي",
+      "href": "/for-rent/daily-farms"
+    },
+    {
+      "label": "إيجار شهري وسنوي",
+      "href": "/for-rent/long-term"
+    },
+    {
+      "label": "التعهدات والإكساء",
+      "href": "/contracting",
+      "highlight": true
+    },
+    {
+      "label": "المناطق",
+      "href": "/areas"
+    },
+    {
+      "label": "دليل العقارات",
+      "href": "/blog"
+    },
+    {
+      "label": "من نحن",
+      "href": "/about"
+    }
   ],
   "footerLinks": [
-    { "label": "من نحن", "href": "/about" },
-    { "label": "سياسة الخصوصية", "href": "/page/privacy-policy" },
-    { "label": "شروط الاستخدام", "href": "/page/terms" }
+    {
+      "label": "مؤشر الأسعار",
+      "href": "/price-index"
+    },
+    {
+      "label": "التعهدات والإكساء",
+      "href": "/contracting"
+    },
+    {
+      "label": "من نحن",
+      "href": "/about"
+    },
+    {
+      "label": "سياسة الخصوصية",
+      "href": "/page/privacy-policy"
+    },
+    {
+      "label": "شروط الاستخدام",
+      "href": "/page/terms"
+    }
   ]
 }

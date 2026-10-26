@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowLeft, BadgeCheck, Camera, FileSearch, Globe2, HandCoins, Handshake, MapPin, ShieldCheck, Star } from "lucide-react";
+import { ArrowLeft, BadgeCheck, Camera, FileSearch, Globe2, HandCoins, Handshake, HardHat, MapPin, ShieldCheck, Star } from "lucide-react";
 import { SearchFilter } from "@/components/SearchFilter";
 import { PropertyGrid } from "@/components/PropertyCard";
 import { FAQ } from "@/components/FAQ";
@@ -125,6 +125,36 @@ export default function HomePage() {
           </Link>
         </div>
         <PropertyGrid items={daily} />
+      </section>
+
+      {/* Contracting & finishing */}
+      <section className="bg-white py-16" aria-labelledby="contracting-title">
+        <div className="container">
+          <div className="grid overflow-hidden rounded-card border-2 border-gold bg-emerald shadow-soft lg:grid-cols-2">
+            <div className="relative min-h-[240px]">
+              <Image src={assetSrc(home.contractingSection.image)} alt={home.contractingSection.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-l from-emerald/70 to-transparent" />
+            </div>
+            <div className="p-6 text-white md:p-10">
+              <p className="inline-flex items-center gap-2 text-sm font-bold text-gold">
+                <HardHat className="h-4 w-4" aria-hidden="true" />
+                {home.contractingSection.eyebrow}
+              </p>
+              <h2 id="contracting-title" className="mt-2 text-2xl font-extrabold text-white md:text-3xl">
+                {home.contractingSection.title}
+              </h2>
+              <p className="mt-3 leading-8 text-white/80">{home.contractingSection.text}</p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Link href="/contracting" className="btn-gold">
+                  {home.contractingSection.button}
+                </Link>
+                <Link href="/contracting#calculator" className="btn-outline !text-white">
+                  {home.contractingSection.secondaryButton}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Trust */}

@@ -72,6 +72,7 @@ collections:
           - { label: تم البيع, value: sold }
           - { label: مؤجر حالياً, value: rented }
       - { name: featured, label: عقار مميز, widget: boolean, default: false, required: false }
+      - { name: needsFinishing, label: عظم / بحاجة إكساء, widget: boolean, default: false, required: false, hint: "يُظهر صندوق «هل ترغب باستلام هذا العقار جاهزاً ع المفتاح؟». يظهر تلقائياً لكل الأراضي." }
       - { name: price, label: السعر بالدولار, widget: number, value_type: int, min: 1, hint: "للبيع: السعر الكامل. للإيجار اليومي: سعر اليوم. للإيجار الشهري: سعر الشهر." }
       - { name: landArea, label: المساحة الإجمالية (م²), widget: number, value_type: int, required: false, hint: "الدونم = 1000 م²" }
       - { name: builtArea, label: مساحة البناء (م²), widget: number, value_type: int, required: false }
@@ -168,12 +169,68 @@ collections:
         fields:
           - { name: label, label: البند, widget: string }
           - { name: value, label: السعر التقريبي, widget: string }
+      - name: priceIndex
+        label: أرقام مؤشر الأسعار (/price-index) بالدولار
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - name: agriDunum
+            label: الدونم الزراعي ($ للدونم)
+            widget: object
+            fields: &rangeFields
+              - { name: min, label: من, widget: number, value_type: int }
+              - { name: max, label: إلى, widget: number, value_type: int }
+          - { name: plotM2, label: متر المقسم المعد للبناء ($ للمتر), widget: object, fields: *rangeFields }
+          - { name: apartmentM2, label: متر الشقة السكنية ($ للمتر), widget: object, fields: *rangeFields }
+          - { name: villaM2, label: متر الفيلا المبنية ($ للمتر), widget: object, fields: *rangeFields }
+          - { name: finishingM2, label: إكساء المتر المربع ($ للمتر), widget: object, fields: *rangeFields }
+          - { name: dailyRent, label: إيجار المزرعة اليومي ($ لليوم), widget: object, fields: *rangeFields }
+          - name: trend
+            label: اتجاه السوق
+            widget: select
+            options:
+              - { label: صاعد, value: up }
+              - { label: مستقر, value: stable }
+              - { label: هابط, value: down }
       - name: faqs
         label: الأسئلة الشائعة
         widget: list
         fields:
           - { name: q, label: السؤال, widget: string }
           - { name: a, label: الجواب, widget: text }
+
+  - name: projects
+    label: مشاريع التعهدات (قبل وبعد)
+    label_singular: مشروع
+    description: تظهر في صفحة التعهدات والإكساء كمقارنة «قبل / بعد» بالسحب.
+    folder: content/projects
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{urlSlug}}"
+    summary: "{{title}}"
+    sortable_fields: [order, year, title]
+    fields:
+      - { name: title, label: عنوان المشروع, widget: string }
+      - { name: urlSlug, label: معرّف بالإنجليزية, widget: string, hint: "مثل: villa-darkhabiyah-2026", pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "حروف إنجليزية صغيرة وشرطات فقط"] }
+      - name: category
+        label: نوع المشروع
+        widget: select
+        options:
+          - { label: بناء, value: build }
+          - { label: إكساء, value: finishing }
+          - { label: مسابح وتجهيز, value: pool }
+          - { label: ترميم, value: renovation }
+      - { name: area, label: المنطقة, widget: relation, collection: areas, value_field: "{{slug}}", search_fields: [name, fullName], display_fields: [fullName] }
+      - { name: before, label: صورة «قبل», widget: image }
+      - { name: after, label: صورة «بعد», widget: image, hint: "يُفضّل أن تكون الصورتان من نفس الزاوية ونفس الأبعاد" }
+      - { name: description, label: وصف مختصر, widget: text, required: false }
+      - { name: duration, label: مدة التنفيذ, widget: string, required: false, hint: "مثال: 4 أشهر" }
+      - { name: year, label: سنة التنفيذ, widget: number, value_type: int, required: false }
+      - { name: order, label: الترتيب, widget: number, value_type: int, default: 10 }
+      - { name: isExample, label: مثال توضيحي (ليس مشروعاً حقيقياً), widget: boolean, default: false, required: false, hint: "أزل هذا الخيار عند رفع مشروع حقيقي منفّذ" }
 
   - name: pages
     label: محتوى الصفحات
@@ -222,6 +279,17 @@ collections:
               - { name: title, label: العنوان, widget: string }
               - { name: text, label: النص, widget: text }
               - { name: button, label: نص الزر, widget: string }
+          - name: contractingSection
+            label: قسم التعهدات والإكساء
+            widget: object
+            collapsed: true
+            fields:
+              - { name: eyebrow, label: النص الصغير, widget: string }
+              - { name: title, label: العنوان, widget: string }
+              - { name: text, label: النص, widget: text }
+              - { name: button, label: نص الزر الذهبي, widget: string }
+              - { name: secondaryButton, label: نص زر الحاسبة, widget: string }
+              - { name: image, label: الصورة, widget: image }
           - name: trust
             label: قسم «لماذا نحن»
             widget: object
@@ -385,6 +453,151 @@ collections:
           - { name: apartment, label: شقة, widget: object, collapsed: true, fields: *categoryFields }
           - { name: land, label: أرض, widget: object, collapsed: true, fields: *categoryFields }
 
+      - name: contracting
+        label: التعهدات والإكساء (والحاسبة)
+        file: content/pages/contracting.json
+        fields:
+          - name: seo
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: عنوان الصفحة في جوجل, widget: string }
+              - { name: description, label: الوصف في نتائج البحث, widget: text }
+          - name: hero
+            label: الواجهة
+            widget: object
+            fields:
+              - { name: badge, label: الشارة, widget: string }
+              - { name: title, label: العنوان (H1), widget: string }
+              - { name: subtitle, label: النص تحت العنوان, widget: text }
+              - { name: image, label: صورة الخلفية, widget: image }
+          - { name: servicesTitle, label: عنوان قسم الخدمات, widget: string }
+          - { name: servicesSubtitle, label: نص قسم الخدمات, widget: string }
+          - name: services
+            label: الخدمات
+            widget: list
+            fields:
+              - name: icon
+                label: الأيقونة
+                widget: select
+                options:
+                  - { label: مبنى, value: building }
+                  - { label: رول دهان, value: paint }
+                  - { label: قطرات ماء, value: droplets }
+                  - { label: مطرقة, value: hammer }
+                  - { label: شمس, value: sun }
+                  - { label: مسطرة, value: ruler }
+              - { name: title, label: اسم الخدمة, widget: string }
+              - { name: text, label: الوصف, widget: text }
+              - { name: image, label: الصورة, widget: image }
+              - { name: points, label: نقاط مختصرة, widget: list, field: { name: point, label: نقطة, widget: string } }
+          - name: weekly
+            label: نظام التوثيق الأسبوعي للمغتربين
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+              - { name: subtitle, label: النص, widget: text }
+              - name: steps
+                label: الخطوات
+                widget: list
+                fields:
+                  - { name: title, label: الخطوة, widget: string }
+                  - { name: text, label: الشرح, widget: text }
+          - name: calculator
+            label: حاسبة التكلفة (الأسعار والمدد)
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+              - { name: subtitle, label: النص, widget: text }
+              - { name: disclaimer, label: ملاحظة إخلاء المسؤولية, widget: text }
+              - { name: whatsappMessage, label: رسالة واتساب لطلب عرض السعر, widget: text }
+              - { name: rangePercent, label: هامش التقدير (±%), widget: number, value_type: int, min: 0, max: 50, hint: "15 يعني عرض النتيجة كنطاق ±15%" }
+              - name: levels
+                label: مستويات التشطيب
+                widget: list
+                allow_add: false
+                allow_remove: false
+                fields:
+                  - { name: id, label: المعرّف (لا تغيّره), widget: hidden }
+                  - { name: label, label: الاسم, widget: string }
+                  - { name: description, label: الوصف, widget: string }
+              - name: projectTypes
+                label: أنواع المشاريع
+                widget: list
+                fields:
+                  - { name: id, label: معرّف بالإنجليزية, widget: string, pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "حروف إنجليزية صغيرة وشرطات فقط"] }
+                  - { name: label, label: اسم المشروع, widget: string }
+                  - name: unit
+                    label: الوحدة
+                    widget: select
+                    options:
+                      - { label: متر مربع, value: m2 }
+                      - { label: دونم, value: dunum }
+                  - { name: qtyLabel, label: اسم حقل المساحة, widget: string, hint: "مثال: مساحة الشقة" }
+                  - { name: defaultQty, label: المساحة الافتراضية, widget: number, value_type: float }
+                  - { name: minQty, label: أقل مساحة, widget: number, value_type: float }
+                  - { name: maxQty, label: أكبر مساحة, widget: number, value_type: float }
+                  - { name: step, label: خطوة المؤشر, widget: number, value_type: float }
+                  - name: perUnit
+                    label: السعر لكل وحدة ($)
+                    widget: object
+                    fields: &levelPrices
+                      - { name: economy, label: عملي اقتصادي, widget: number, value_type: int }
+                      - { name: deluxe, label: ديلوكس, widget: number, value_type: int }
+                      - { name: super, label: سوبر ديلوكس ملكي, widget: number, value_type: int }
+                  - { name: fixed, label: تكلفة ثابتة للمشروع ($) — مثل التراخيص أو منظومة الفلترة أو البئر, widget: object, fields: *levelPrices }
+                  - { name: baseDays, label: أيام التنفيذ الأساسية, widget: number, value_type: int }
+                  - { name: daysPerUnit, label: أيام إضافية لكل وحدة, widget: number, value_type: float }
+          - { name: projectsTitle, label: عنوان معرض المشاريع, widget: string }
+          - { name: projectsSubtitle, label: نص معرض المشاريع, widget: string, hint: "المشاريع نفسها تُدار من قسم «مشاريع التعهدات»" }
+          - name: faqs
+            label: الأسئلة الشائعة
+            widget: list
+            fields:
+              - { name: q, label: السؤال, widget: string }
+              - { name: a, label: الجواب, widget: text }
+          - name: cta
+            label: الدعوة الختامية
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+              - { name: text, label: النص, widget: text }
+              - { name: button, label: نص الزر, widget: string }
+          - name: propertyCallout
+            label: صندوق «جاهز ع المفتاح» في صفحات العقارات
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: العنوان, widget: string }
+              - { name: text, label: النص, widget: text }
+              - { name: button, label: نص زر واتساب, widget: string }
+              - { name: secondary, label: نص زر الحاسبة, widget: string }
+
+      - name: price-index
+        label: مؤشر الأسعار
+        file: content/pages/price-index.json
+        fields:
+          - name: seo
+            label: SEO
+            widget: object
+            fields:
+              - { name: title, label: عنوان الصفحة في جوجل, widget: string }
+              - { name: description, label: الوصف في نتائج البحث, widget: text }
+          - { name: title, label: العنوان (H1), widget: string }
+          - { name: subtitle, label: النص تحت العنوان, widget: text }
+          - { name: updatedAt, label: تاريخ آخر تحديث, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, hint: "حدّثه كلما عدّلت الأرقام. الأرقام نفسها في قسم «المناطق»" }
+          - { name: keyTakeaways, label: خلاصة سريعة, widget: list, field: { name: point, label: نقطة, widget: string } }
+          - { name: methodology, label: كيف نحسب المؤشر, widget: markdown }
+          - name: faqs
+            label: الأسئلة الشائعة
+            widget: list
+            fields:
+              - { name: q, label: السؤال, widget: string }
+              - { name: a, label: الجواب, widget: text }
+
   - name: custom-pages
     label: صفحات إضافية
     label_singular: صفحة
@@ -435,6 +648,7 @@ collections:
             fields:
               - { name: label, label: النص, widget: string }
               - { name: href, label: الرابط, widget: string, hint: "مثل /for-sale أو /page/offers" }
+              - { name: highlight, label: إبراز بإطار ذهبي, widget: boolean, default: false, required: false }
           - name: footerLinks
             label: روابط أسفل الموقع
             widget: list

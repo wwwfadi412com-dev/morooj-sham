@@ -34,6 +34,23 @@ export interface Area {
   commonDeeds: string;
   priceGuide: { label: string; value: string }[];
   faqs: FAQ[];
+  priceIndex?: AreaPriceIndex;
+}
+
+export interface PriceRange {
+  min: number;
+  max: number;
+}
+
+/** Approximate USD ranges shown on /price-index */
+export interface AreaPriceIndex {
+  agriDunum: PriceRange;
+  plotM2: PriceRange;
+  apartmentM2: PriceRange;
+  villaM2: PriceRange;
+  dailyRent: PriceRange;
+  finishingM2: PriceRange;
+  trend: "up" | "stable" | "down";
 }
 
 export interface Property {
@@ -45,6 +62,8 @@ export interface Property {
   area: string;
   status: PropertyStatus;
   featured?: boolean;
+  /** Shell / needs finishing — shows the turnkey contracting callout */
+  needsFinishing?: boolean;
   /** USD. For rentals: per day (daily-rent) or per month (long-term-rent). */
   price: number;
   landArea?: number;
@@ -92,6 +111,8 @@ export interface Seo {
 export interface NavLink {
   label: string;
   href: string;
+  /** Rendered as a gold pill in the header */
+  highlight?: boolean;
 }
 
 export interface SiteSettings {
@@ -140,6 +161,7 @@ export interface PagesContent {
     areasSection: { title: string; subtitle: string };
     saleSection: { title: string };
     dailySection: { eyebrow: string; title: string; text: string; button: string };
+    contractingSection: { eyebrow: string; title: string; text: string; button: string; secondaryButton: string; image: string };
     trust: { title: string; subtitle: string; items: { icon: TrustIcon; title: string; text: string }[] };
     blogSection: { title: string };
     faqTitle: string;
@@ -171,6 +193,16 @@ export interface PagesContent {
     submitLabel: string;
     formNote: string;
   };
+  contracting: ContractingContent;
+  "price-index": {
+    seo: Seo;
+    title: string;
+    subtitle: string;
+    updatedAt: string;
+    keyTakeaways: string[];
+    methodologyHtml: string;
+    faqs: FAQ[];
+  };
   listings: Record<"forSale" | "forRent" | "dailyFarms" | "longTerm" | "areasIndex" | "blogIndex", ListingPageContent>;
   categories: Record<PropertyType, CategoryLabels>;
 }
@@ -183,4 +215,66 @@ export interface CustomPage {
   image?: string;
   /** HTML compiled from markdown */
   body: string;
+}
+
+/* ---------- contracting (التعهدات والإكساء) ---------- */
+
+export type FinishLevel = "economy" | "deluxe" | "super";
+export type ServiceIcon = "building" | "paint" | "droplets" | "hammer" | "sun" | "ruler";
+
+export interface CalculatorProjectType {
+  id: string;
+  label: string;
+  unit: "m2" | "dunum";
+  qtyLabel: string;
+  defaultQty: number;
+  minQty: number;
+  maxQty: number;
+  step: number;
+  /** One-off cost per level (USD), e.g. permits, filtration plant, well */
+  fixed: Record<FinishLevel, number>;
+  /** Cost per m² or per dunum per level (USD) */
+  perUnit: Record<FinishLevel, number>;
+  baseDays: number;
+  daysPerUnit: number;
+}
+
+export interface ContractingContent {
+  seo: Seo;
+  hero: { badge: string; title: string; subtitle: string; image: string };
+  servicesTitle: string;
+  servicesSubtitle: string;
+  services: { icon: ServiceIcon; title: string; text: string; image: string; points: string[] }[];
+  weekly: { title: string; subtitle: string; steps: { title: string; text: string }[] };
+  calculator: {
+    title: string;
+    subtitle: string;
+    disclaimer: string;
+    whatsappMessage: string;
+    rangePercent: number;
+    levels: { id: FinishLevel; label: string; description: string }[];
+    projectTypes: CalculatorProjectType[];
+  };
+  projectsTitle: string;
+  projectsSubtitle: string;
+  faqs: FAQ[];
+  cta: { title: string; text: string; button: string };
+  propertyCallout: { title: string; text: string; button: string; secondary: string };
+}
+
+export type ProjectCategory = "build" | "finishing" | "pool" | "renovation";
+
+export interface Project {
+  slug: string;
+  title: string;
+  area: string;
+  category: ProjectCategory;
+  before: string;
+  after: string;
+  description?: string;
+  duration?: string;
+  year?: number;
+  order: number;
+  /** Seed/sample entries are labelled "مثال توضيحي" on the site */
+  isExample: boolean;
 }

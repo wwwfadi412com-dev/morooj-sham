@@ -33,6 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articles.map((a) => entry(`/blog/${a.slug}`, 0.7, "monthly", new Date(a.publishedAt))),
     entry("/submit-property", 0.6, "monthly"),
     entry("/request-property", 0.6, "monthly"),
+    entry("/contracting", 0.85, "monthly"),
+    entry("/price-index", 0.8, "monthly"),
     entry("/about", 0.5, "monthly"),
     ...customPages.map((p) => entry(`/page/${p.slug}`, 0.3, "yearly")),
   ];

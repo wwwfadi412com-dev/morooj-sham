@@ -11,7 +11,7 @@ import { SITE, displayPhone, whatsappLink } from "@/lib/site";
 export function Footer() {
   const types = Object.keys(typeSlugs) as PropertyType[];
   return (
-    <footer className="mt-20 bg-emerald pb-24 text-white/80 md:pb-0">
+    <footer className="mt-20 bg-emerald pb-24 text-white/80 print:hidden md:pb-0">
       <div className="h-1 bg-gradient-to-l from-gold via-gold/40 to-gold" />
       <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div>

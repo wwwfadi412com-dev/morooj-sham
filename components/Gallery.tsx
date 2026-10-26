@@ -18,7 +18,7 @@ export function Gallery({ images, code, title, dimmed = false }: { images: strin
         className={`aspect-[16/10] rounded-card bg-emerald/10 ${dimmed ? "grayscale" : ""}`}
       />
       {images.length > 1 && (
-        <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto" role="tablist" aria-label="صور العقار">
+        <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto print:hidden" role="tablist" aria-label="صور العقار">
           {images.map((src, i) => (
             <button
               key={src}

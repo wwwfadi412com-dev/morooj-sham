@@ -10,7 +10,7 @@
     "lat": 33.4386,
     "lng": 36.1525
   },
-  "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=75",
+  "image": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=75",
   "tagline": "وجهة المزارع السياحية والإيجار اليومي مع مسبح",
   "highlights": [
     "مزارع سياحية بمسابح",
@@ -62,5 +62,32 @@
       "q": "ما أسعار الشقق في دروشا؟",
       "a": "تبدأ أسعار الشقق السكنية تقريبياً من 18,000 دولار وتصل إلى 40,000 دولار للشقق الأكبر والأحدث إكساءً، وهي أقل بشكل ملحوظ من أسعار دمشق."
     }
-  ]
+  ],
+  "priceIndex": {
+    "agriDunum": {
+      "min": 10000,
+      "max": 25000
+    },
+    "plotM2": {
+      "min": 40,
+      "max": 80
+    },
+    "apartmentM2": {
+      "min": 160,
+      "max": 300
+    },
+    "villaM2": {
+      "min": 320,
+      "max": 600
+    },
+    "dailyRent": {
+      "min": 60,
+      "max": 200
+    },
+    "finishingM2": {
+      "min": 90,
+      "max": 240
+    },
+    "trend": "up"
+  }
 }

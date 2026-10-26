@@ -18,21 +18,27 @@ export function Header() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 bg-emerald/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-emerald/90">
+    <header className="sticky top-0 z-40 bg-emerald/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-emerald/90 print:hidden">
       <div className="container flex h-16 items-center justify-between gap-4 md:h-20">
-        <Link href="/" aria-label={`${SITE.name} - الرئيسية`}>
+        <Link href="/" aria-label={`${SITE.name} - الرئيسية`} className="shrink-0">
           <BrandLogo />
         </Link>
 
         <nav aria-label="القائمة الرئيسية" className="hidden xl:block">
-          <ul className="flex items-center gap-5">
+          <ul className="flex items-center gap-4 2xl:gap-5">
             {NAV.map((n) => {
               const active = pathname === n.href || pathname.startsWith(`${n.href}/`);
               return (
                 <li key={n.href}>
                   <Link
                     href={n.href}
-                    className={`whitespace-nowrap font-heading text-[15px] font-bold transition-colors hover:text-gold ${active ? "text-gold" : "text-white/90"}`}
+                    className={
+                      n.highlight
+                        ? `whitespace-nowrap rounded-full border border-gold px-3 py-1.5 font-heading text-sm font-bold transition-colors ${
+                            active ? "bg-gold text-emerald" : "text-gold hover:bg-gold hover:text-emerald"
+                          }`
+                        : `whitespace-nowrap font-heading text-sm font-bold transition-colors hover:text-gold 2xl:text-[15px] ${active ? "text-gold" : "text-white/90"}`
+                    }
                   >
                     {n.label}
                   </Link>
@@ -73,8 +79,12 @@ export function Header() {
           <ul className="container flex flex-col py-3">
             {NAV.map((n) => (
               <li key={n.href}>
-                <Link href={n.href} className="block border-b border-white/5 py-3 font-heading font-bold text-white hover:text-gold">
+                <Link
+                  href={n.href}
+                  className={`flex items-center justify-between border-b border-white/5 py-3 font-heading font-bold hover:text-gold ${n.highlight ? "text-gold" : "text-white"}`}
+                >
                   {n.label}
+                  {n.highlight && <span className="rounded-full bg-gold px-2 py-0.5 text-xs text-emerald">جديد</span>}
                 </Link>
               </li>
             ))}

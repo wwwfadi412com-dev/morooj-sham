@@ -27,7 +27,10 @@ function readJson(rel) {
     return {};
   }
   try {
-    return JSON.parse(readFileSync(full, "utf8"));
+    const raw = readFileSync(full, "utf8");
+    // SEO guard: the town is خان الشيح (with ح). Catch the common misspelling.
+    if (raw.includes("خان الشيخ")) errors.push(`content/${rel}: خطأ إملائي «خان الشيخ» — الصحيح «خان الشيح» (بحرف الحاء)`);
+    return JSON.parse(raw);
   } catch (e) {
     errors.push(`content/${rel}: ملف JSON غير صالح (${e.message})`);
     return {};
@@ -48,7 +51,9 @@ const strList = (v) =>
 const num = (v) => (v === null || v === undefined || v === "" ? undefined : Number(v));
 const md = (s) => marked.parse(String(s ?? ""), { gfm: true, async: false });
 const faqList = (v) => (Array.isArray(v) ? v.filter((f) => f?.q && f?.a).map((f) => ({ q: f.q, a: f.a })) : []);
-const linkList = (v) => (Array.isArray(v) ? v.filter((l) => l?.label && l?.href).map((l) => ({ label: l.label, href: l.href })) : []);
+const linkList = (v) =>
+  Array.isArray(v) ? v.filter((l) => l?.label && l?.href).map((l) => ({ label: l.label, href: l.href, highlight: Boolean(l.highlight) })) : [];
+const range = (v) => ({ min: num(v?.min) ?? 0, max: num(v?.max) ?? 0 });
 
 /* ---------- settings ---------- */
 const site = readJson("settings/site.json");
@@ -62,7 +67,7 @@ navigation.footerLinks = linkList(navigation.footerLinks);
 
 /* ---------- pages ---------- */
 const pages = {};
-for (const name of ["home", "about", "submit-property", "request-property", "listings", "categories"]) {
+for (const name of ["home", "about", "submit-property", "request-property", "listings", "categories", "contracting", "price-index"]) {
   pages[name] = readJson(`pages/${name}.json`);
 }
 pages.home.faqs = faqList(pages.home.faqs);
@@ -70,6 +75,43 @@ pages.about.faqs = faqList(pages.about.faqs);
 pages.about.bodyHtml = md(pages.about.body);
 pages["request-property"].introHtml = md(pages["request-property"].intro);
 pages.listings.dailyFarms.faqs = faqList(pages.listings.dailyFarms?.faqs);
+pages["price-index"].methodologyHtml = md(pages["price-index"].methodology);
+pages["price-index"].faqs = faqList(pages["price-index"].faqs);
+pages["price-index"].keyTakeaways = strList(pages["price-index"].keyTakeaways);
+pages.contracting.faqs = faqList(pages.contracting.faqs);
+
+/* calculator: every project type needs numeric rates for every finish level */
+const LEVELS = ["economy", "deluxe", "super"];
+const calc = pages.contracting.calculator ?? {};
+calc.rangePercent = num(calc.rangePercent) ?? 15;
+calc.projectTypes = (calc.projectTypes ?? []).map((t, i) => {
+  const where = `content/pages/contracting.json (الحاسبة، النوع ${i + 1})`;
+  const n = {
+    ...t,
+    unit: t.unit === "dunum" ? "dunum" : "m2",
+    defaultQty: num(t.defaultQty) ?? 100,
+    minQty: num(t.minQty) ?? 1,
+    maxQty: num(t.maxQty) ?? 1000,
+    step: num(t.step) ?? 1,
+    baseDays: num(t.baseDays) ?? 0,
+    daysPerUnit: num(t.daysPerUnit) ?? 0,
+    fixed: Object.fromEntries(LEVELS.map((l) => [l, num(t.fixed?.[l]) ?? 0])),
+    perUnit: Object.fromEntries(LEVELS.map((l) => [l, num(t.perUnit?.[l]) ?? NaN])),
+  };
+  check(where, t.id && t.label, "المعرّف والاسم مطلوبان");
+  check(where, LEVELS.every((l) => Number.isFinite(n.perUnit[l]) && n.perUnit[l] >= 0), "سعر الوحدة مطلوب لكل مستويات التشطيب");
+  check(where, n.minQty < n.maxQty, "الحد الأدنى للمساحة يجب أن يكون أصغر من الحد الأعلى");
+  return n;
+});
+check("content/pages/contracting.json", calc.projectTypes.length > 0, "أضف نوع مشروع واحداً على الأقل للحاسبة");
+// Levels are always economy / deluxe / super in that order; the CMS edits only labels.
+const LEVEL_DEFAULTS = ["عملي اقتصادي", "ديلوكس", "سوبر ديلوكس ملكي"];
+calc.levels = LEVELS.map((id, i) => {
+  const given = (calc.levels ?? []).find((l) => l?.id === id) ?? calc.levels?.[i] ?? {};
+  return { id, label: given.label || LEVEL_DEFAULTS[i], description: given.description || "" };
+});
+pages.contracting.calculator = calc;
+
 for (const t of TYPES) check("content/pages/categories.json", pages.categories[t]?.single && pages.categories[t]?.saleTitle, `بيانات النوع ${t} ناقصة`);
 
 /* ---------- areas ---------- */
@@ -87,6 +129,17 @@ const areas = readCollection("areas")
       overview: strList(data.overview),
       priceGuide: Array.isArray(data.priceGuide) ? data.priceGuide.filter((g) => g?.label && g?.value) : [],
       faqs: faqList(data.faqs),
+      priceIndex: data.priceIndex
+        ? {
+            agriDunum: range(data.priceIndex.agriDunum),
+            plotM2: range(data.priceIndex.plotM2),
+            apartmentM2: range(data.priceIndex.apartmentM2),
+            villaM2: range(data.priceIndex.villaM2),
+            dailyRent: range(data.priceIndex.dailyRent),
+            finishingM2: range(data.priceIndex.finishingM2),
+            trend: ["up", "stable", "down"].includes(data.priceIndex.trend) ? data.priceIndex.trend : "stable",
+          }
+        : undefined,
     };
     delete a.urlSlug;
     check(file, SLUG_RE.test(slug), "رابط المنطقة يجب أن يكون حروفاً إنجليزية صغيرة وشرطات");
@@ -109,6 +162,7 @@ const properties = readCollection("properties").map(({ file, slug, data }) => {
     slug,
     code: String(data.code ?? "").trim().toUpperCase(),
     featured: Boolean(data.featured),
+    needsFinishing: Boolean(data.needsFinishing),
     price: num(data.price),
     capacity: num(data.capacity),
     landArea: num(data.landArea),
@@ -161,6 +215,20 @@ const articles = readCollection("articles").map(({ file, slug, data }) => {
   return a;
 });
 
+/* ---------- contracting projects (before / after) ---------- */
+const PROJECT_CATEGORIES = ["build", "finishing", "pool", "renovation"];
+const projects = readCollection("projects")
+  .map(({ file, slug, data }) => {
+    const p = clean({ ...data, slug, order: num(data.order) ?? 99, year: num(data.year), isExample: Boolean(data.isExample) });
+    delete p.urlSlug;
+    check(file, p.title, "العنوان مطلوب");
+    check(file, AREAS.includes(p.area), `المنطقة "${p.area}" غير موجودة في قسم المناطق`);
+    check(file, PROJECT_CATEGORIES.includes(p.category), "نوع المشروع غير صالح");
+    check(file, p.before && p.after, "صورتا «قبل» و«بعد» مطلوبتان");
+    return p;
+  })
+  .sort((a, b) => a.order - b.order);
+
 /* ---------- custom pages ---------- */
 const customPages = readCollection("custom-pages").map(({ file, slug, data }) => {
   const p = clean({ slug, title: data.title, seoTitle: data.seoTitle, seoDescription: data.seoDescription, image: data.image, body: md(data.body) });
@@ -187,4 +255,5 @@ write("areas", areas);
 write("properties", properties);
 write("articles", articles);
 write("custom-pages", customPages);
-console.log(`✓ content: ${areas.length} areas, ${properties.length} properties, ${articles.length} articles, ${customPages.length} pages`);
+write("projects", projects);
+console.log(`✓ content: ${areas.length} areas, ${properties.length} properties, ${articles.length} articles, ${customPages.length} pages, ${projects.length} projects`);

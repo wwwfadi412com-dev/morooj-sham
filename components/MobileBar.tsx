@@ -11,7 +11,7 @@ export function MobileBar() {
   const pathname = usePathname();
   if (pathname.startsWith("/property/")) return null;
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-black/5 bg-white/95 p-3 shadow-[0_-6px_20px_rgba(15,61,46,0.12)] backdrop-blur md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t print:hidden border-black/5 bg-white/95 p-3 shadow-[0_-6px_20px_rgba(15,61,46,0.12)] backdrop-blur md:hidden">
       <div className="flex gap-2">
         <a
           href={whatsappLink(SITE.whatsappGreeting)}
